@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="main-bg-container">
+        <nav>
+            <div>
+                <a href="">
+                    <img src="https://encgt.ma/wp-content/uploads/2020/06/logo-web.png" alt="LOGO">
+                </a>
+                <p>NOUS CONTACTER</p>
+            </div>
+        </nav>
+        <div class="main-content-container">
+            
+
+            <div class="wrapper">
+                <div class="form-container">
+                   <div class="slide-controls">
+                      <input type="radio" name="slide" id="login" checked>
+                      <input type="radio" name="slide" id="signup">
+                      <label for="login" class="slide login">CONNECTION</label>
+                      <label for="signup" class="slide signup">INSCRIPTION</label>
+                      <div class="slider-tab"></div>
+                   </div>
+                   <div class="form-inner">
+                      <form action="#" class="login">
+                         <div class="field">
+                            <input type="text" placeholder="Email Address" required>
+                         </div>
+                         <div class="field">
+                            <input type="password" placeholder="Password" required>
+                         </div>
+                         <div class="pass-link">
+                            <a href="#">Forgot password?</a>
+                         </div>
+                         <div class="field btn">
+                            <div class="btn-layer"></div>
+                            <input type="submit" value="CONNECTER">
+                         </div>
+                         <div class="signup-link">
+                            Pas un Membre? <a href="">Inscrire d'abord</a>
+                         </div>
+                      </form>
+                      <form action="#" class="signup">
+                         <div class="field">
+                            <input type="text" placeholder="Nom et Prenom" required>
+                         </div>
+                         <div class="field">
+                            <input type="text" placeholder="Entreprise" required>
+                         </div>
+                         <div class="field">
+                            <input type="text" placeholder="Post" required>
+                         </div>
+                         <div class="field">
+                            <input type="tel" placeholder="Tel" required>
+                         </div>
+                         <div class="field">
+                            <input type="email" placeholder="Email" required>
+                         </div>
+                         <div class="field">
+                            <input type="password" placeholder="Password" required>
+                         </div>
+                         <div class="field btn">
+                            <div class="btn-layer"></div>
+                            <input type="submit" value="INSCRIRE">
+                         </div>
+                      </form>
+                   </div>
+                </div>
+             </div>
+             <script>
+                const loginText = document.querySelector(".title-text .login");
+                const loginForm = document.querySelector("form.login");
+                const loginBtn = document.querySelector("label.login");
+                const signupBtn = document.querySelector("label.signup");
+                const signupLink = document.querySelector("form .signup-link a");
+                signupBtn.onclick = (()=>{
+                  loginForm.style.marginLeft = "-50%";
+                  loginText.style.marginLeft = "-50%";
+                });
+                loginBtn.onclick = (()=>{
+                  loginForm.style.marginLeft = "0%";
+                  loginText.style.marginLeft = "0%";
+                });
+                signupLink.onclick = (()=>{
+                  signupBtn.click();
+                  return false;
+                });
+             </script>
+
+        </div>
+    </div>
+
+
+
+    
+
+
+
+    <div class="footer">
+        <footer>
+            <div class="footer-top">
+                <div class="footer-section-one">
+                    <div class="footer-section-one-container">
+                        <img src="https://encgt.ma/wp-content/uploads/2020/06/logo-web.png" alt="LOGO">
+                        <p>L’ENCG Tanger est un établissement d’enseignement supérieur public qui a 
+                        pour mission de former les lauréats aux métiers du commerce et de gestion.</p>
+                    </div>
+                    
+                </div>
+                <div class="footer-section-filler">
+                    
+                </div>
+                <div class="footer-section-two">
+                    <div class="footer-section-two-container">
+                        <p class="footer-title">EMAIL</p>
+                        <p class="footer-sub-info">encgtanger@encgt.ma</p>
+                        <p class="footer-title-mt">ADRESS</p>
+                        <p class="footer-sub-info">Route de l’aéroport, B.P 1255,90000 Tanger, Maroc</p>
+                    </div>
+                </div>
+                <div class="footer-section-tree">
+                    <div class="footer-section-tree-container">
+                        <p class="footer-title">Service formation continue</p>
+                        <p class="footer-sub-info">Tél. +212 (0) 539 313 489</p>
+                        <p class="footer-title-mt">Standard de l’ENCGT</p>
+                        <p class="footer-sub-info">Tél. +212 (0) 539 313 4 87</p>
+                        <p class="footer-sub-info-mt">Tél. +212 (0) 539 313 4 88</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-sub">
+                <div class="cp-container">
+                    <p>© ENCGT 2023</p>
+                </div>
+                <div class="icons-container">
+                    <img src="Path 3.svg" alt="logo3">
+                    <img src="Path 2.svg" alt="logo2">
+                    <img src="Path 1.svg" alt="logo1">
+                </div>
+                
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
