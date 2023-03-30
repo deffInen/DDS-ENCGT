@@ -557,10 +557,11 @@ nav div li a{
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
+    padding-left: 32px;
+    padding-right: 32px;
 }
 
 .info-title{
-    margin-left: 32px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -569,7 +570,6 @@ nav div li a{
 }
 
 .info-data{
-    margin-right: 32px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -597,3 +597,21 @@ nav div li a{
     text-decoration: none;
 }
 
+
+/* annonces page */
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 15px;
+    text-align: center;
+}
+
+table img {
+    height: 25px;
+}
