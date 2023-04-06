@@ -1,0 +1,427 @@
+.about-entroprise-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--color-whitesmoke-200);
+  width: 1920px;
+  height: 888px;
+}
+.lencg-tanger-est7 {
+  position: absolute;
+  width: calc(100% - 7px);
+  top: calc(50% + 4px);
+  left: 8px;
+  line-height: 24px;
+  display: inline-block;
+  height: 100px;
+}
+.logo-web-icon15 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 276px;
+  height: 100px;
+  object-fit: cover;
+}
+.encgt-20237,
+.subscribe7 {
+  position: absolute;
+  left: 50px;
+}
+.subscribe7 {
+  top: calc(50% - 129px);
+  width: 361px;
+  height: 208px;
+}
+.encgt-20237 {
+  top: calc(50% - 8px);
+}
+.path-1-icon7,
+.path-2-icon7 {
+  position: absolute;
+  top: calc(50% - 12.53px);
+  right: 50.69px;
+  width: 13.09px;
+  height: 25.06px;
+}
+.path-2-icon7 {
+  right: 94px;
+  width: 28.87px;
+  height: 23.41px;
+}
+.path-3-icon7 {
+  top: calc(50% - 12.53px);
+  right: 153px;
+  width: 25.06px;
+  height: 25.06px;
+}
+.adress8,
+.info7,
+.path-3-icon7 {
+  position: absolute;
+}
+.info7 {
+  width: 100%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-whitesmoke-100);
+  height: 50px;
+  text-align: right;
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+}
+.adress8 {
+  top: 120px;
+  left: calc(50% + 368px);
+}
+.route-de-laroport8 {
+  margin: 0;
+}
+.route-de-laroport-container7 {
+  position: absolute;
+  top: calc(50% + 11px);
+  left: calc(50% + 368px);
+  line-height: 24px;
+}
+.service-formation-continue7 {
+  position: absolute;
+  top: 40px;
+  right: 49px;
+}
+.tl-212-021 {
+  position: absolute;
+  top: calc(50% - 69px);
+  right: 73px;
+}
+.standard-de-lencgt7 {
+  position: absolute;
+  top: calc(50% - 25px);
+  right: 99px;
+}
+.email13 {
+  position: absolute;
+  top: calc(50% - 105px);
+  left: calc(50% + 368px);
+}
+.tl-212-0-container7 {
+  position: absolute;
+  top: calc(50% + 11px);
+  right: 68px;
+  line-height: 24px;
+}
+.encgtangerencgtma7 {
+  position: absolute;
+  top: calc(50% - 69px);
+  left: calc(50% + 368px);
+}
+.footer-37,
+.group-child14 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.footer-37 {
+  background-color: var(--color-white);
+  width: 1920px;
+  height: 290px;
+  font-size: var(--font-size-lg);
+  color: var(--color-gray);
+}
+.group-child14 {
+  height: 100%;
+  top: 0;
+  border-radius: var(--br-xs);
+  background-color: var(--color-forestgreen);
+  width: 70px;
+}
+.div12 {
+  position: absolute;
+  top: calc(50% - 13px);
+  left: 30px;
+}
+.a-propos-de2 {
+  position: absolute;
+  top: calc(50% - 14px);
+  right: 23px;
+  color: var(--color-forestgreen);
+}
+.group-child15,
+.rectangle-parent3 {
+  position: absolute;
+  border-radius: var(--br-xs);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-forestgreen);
+  box-sizing: border-box;
+}
+.rectangle-parent3 {
+  top: 172px;
+  left: 222px;
+  width: 367px;
+  height: 70px;
+  color: var(--color-white);
+  font-family: var(--font-segoe-ui);
+}
+.group-child15 {
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 70px;
+}
+.a-propos-de3 {
+  position: absolute;
+  top: calc(50% - 14px);
+  right: 23px;
+}
+.rectangle-parent4,
+.rectangle-parent5 {
+  position: absolute;
+  top: 172px;
+  border-radius: var(--br-xs);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-forestgreen);
+  box-sizing: border-box;
+  height: 70px;
+  font-family: var(--font-segoe-ui);
+}
+.rectangle-parent4 {
+  left: 802px;
+  width: 317px;
+  cursor: pointer;
+}
+.rectangle-parent5 {
+  right: 222px;
+  width: 386px;
+}
+.nom-de-lentreprise {
+  position: absolute;
+  top: 0;
+  left: 0;
+  line-height: 12px;
+}
+.input8,
+.input9 {
+  position: absolute;
+  top: 24px;
+  border-radius: var(--br-9xs);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  width: 682px;
+  height: 86px;
+}
+.input8 {
+  left: 36px;
+}
+.input9 {
+  right: 36px;
+}
+.type-dannance {
+  position: absolute;
+  top: calc(50% + 3px);
+  left: 16px;
+  opacity: 0.5;
+}
+.component-1-icon {
+  position: absolute;
+  top: calc(50% + 9.95px);
+  right: 24.6px;
+  width: 9.4px;
+  height: 6.1px;
+}
+.input10 {
+  position: absolute;
+  top: calc(50% - 152px);
+  left: 36px;
+  border-radius: var(--br-9xs);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  width: 682px;
+  height: 86px;
+}
+.ligne-max {
+  position: absolute;
+  top: calc(50% - 52px);
+  left: 16px;
+  opacity: 0.5;
+}
+.input11 {
+  position: absolute;
+  top: calc(50% - 42px);
+  left: 36px;
+  border-radius: var(--br-9xs);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  width: 682px;
+  height: 196px;
+}
+.iconmonstr-picture-10 {
+  position: absolute;
+  top: calc(50% - 87.7px);
+  left: calc(50% - 75.48px);
+  width: 142.96px;
+  height: 107.22px;
+  opacity: 0.61;
+}
+.ajouter1 {
+  position: absolute;
+  top: calc(50% - 10px);
+  left: calc(50% - 42.5px);
+  line-height: 12px;
+}
+.ajouter-container {
+  position: absolute;
+  bottom: 42.56px;
+  left: calc(50% - 136px);
+  border-radius: var(--br-9xs);
+  border: 2px solid var(--color-forestgreen);
+  box-sizing: border-box;
+  width: 273px;
+  height: 50px;
+}
+.ajouter-votre-logo {
+  position: absolute;
+  top: calc(50% + 24.54px);
+  left: calc(50% - 134px);
+  line-height: 12px;
+  color: var(--color-black);
+  opacity: 0.6;
+}
+.logo-dentreprise-optionnel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  line-height: 12px;
+  color: var(--color-gray);
+  text-align: left;
+}
+.cta {
+  top: calc(50% - 152px);
+  right: 36px;
+  border-radius: var(--br-xs);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  width: 682px;
+  height: 306px;
+  text-align: center;
+  color: var(--color-forestgreen);
+}
+.cta,
+.cta1,
+.suivant {
+  position: absolute;
+}
+.suivant {
+  top: calc(50% - 10px);
+  left: calc(50% - 38.5px);
+  line-height: 12px;
+}
+.cta1 {
+  bottom: 24px;
+  left: calc(50% - 206px);
+  border-radius: var(--br-3xs);
+  background-color: var(--color-forestgreen);
+  width: 413px;
+  height: 60px;
+  cursor: pointer;
+  text-align: center;
+  color: var(--color-white);
+}
+.data-entry {
+  position: absolute;
+  top: 284px;
+  left: 222px;
+  border-radius: var(--br-lgi);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-forestgreen);
+  box-sizing: border-box;
+  width: 1476px;
+  height: 572px;
+  font-size: var(--font-size-lg);
+  color: var(--color-gray);
+}
+.base-icon7 {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.user-icon7 {
+  position: absolute;
+  top: calc(50% - 43px);
+  right: 500px;
+  width: 16px;
+  height: 16px;
+}
+.logo-web-icon16 {
+  position: absolute;
+  height: calc(100% - 40px);
+  top: 20px;
+  bottom: 20px;
+  left: calc(50% - 910px);
+  max-height: 100%;
+  width: 276px;
+  object-fit: cover;
+}
+.annonce3,
+.profile4 {
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 321px;
+}
+.profile4 {
+  right: 467px;
+  color: var(--color-dimgray);
+  cursor: pointer;
+}
+.group-child17 {
+  position: absolute;
+  top: calc(50% - 20px);
+  right: 0;
+  border-radius: var(--br-xl);
+  background-color: var(--color-forestgreen);
+  width: 222px;
+  height: 40px;
+}
+.deconnecter3 {
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 25px;
+}
+.rectangle-parent6 {
+  position: absolute;
+  top: calc(50% - 20px);
+  right: 50px;
+  width: 222px;
+  height: 40px;
+  cursor: pointer;
+  color: var(--color-white);
+}
+.nav-bar-37 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 140px;
+  font-size: var(--font-size-3xl);
+}
+.about-entroprise {
+  position: relative;
+  background-color: var(--color-white);
+  width: 100%;
+  height: 1178px;
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: var(--color-forestgreen);
+  font-family: var(--font-arial);
+}

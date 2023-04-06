@@ -1,0 +1,475 @@
+.about-7-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--color-whitesmoke-200);
+  width: 1920px;
+  height: 2338px;
+}
+.lencg-tanger-est6 {
+  position: absolute;
+  width: calc(100% - 7px);
+  top: calc(50% + 4px);
+  left: 8px;
+  line-height: 24px;
+  display: inline-block;
+  height: 100px;
+}
+.logo-web-icon12 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 276px;
+  height: 100px;
+  object-fit: cover;
+}
+.encgt-20236,
+.subscribe6 {
+  position: absolute;
+  left: 50px;
+}
+.subscribe6 {
+  top: calc(50% - 129px);
+  width: 361px;
+  height: 208px;
+}
+.encgt-20236 {
+  top: calc(50% - 8px);
+}
+.path-1-icon6,
+.path-2-icon6 {
+  position: absolute;
+  top: calc(50% - 12.53px);
+  right: 50.69px;
+  width: 13.09px;
+  height: 25.06px;
+}
+.path-2-icon6 {
+  right: 94px;
+  width: 28.87px;
+  height: 23.41px;
+}
+.path-3-icon6 {
+  top: calc(50% - 12.53px);
+  right: 153px;
+  width: 25.06px;
+  height: 25.06px;
+}
+.adress7,
+.info6,
+.path-3-icon6 {
+  position: absolute;
+}
+.info6 {
+  width: 100%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-whitesmoke-100);
+  height: 50px;
+  text-align: right;
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+}
+.adress7 {
+  top: 120px;
+  left: calc(50% + 368px);
+}
+.route-de-laroport7 {
+  margin: 0;
+}
+.route-de-laroport-container6 {
+  position: absolute;
+  top: calc(50% + 11px);
+  left: calc(50% + 368px);
+  line-height: 24px;
+}
+.service-formation-continue6 {
+  position: absolute;
+  top: 40px;
+  right: 49px;
+}
+.tl-212-018 {
+  position: absolute;
+  top: calc(50% - 69px);
+  right: 73px;
+}
+.standard-de-lencgt6 {
+  position: absolute;
+  top: calc(50% - 25px);
+  right: 99px;
+}
+.email12 {
+  position: absolute;
+  top: calc(50% - 105px);
+  left: calc(50% + 368px);
+}
+.tl-212-0-container6 {
+  position: absolute;
+  top: calc(50% + 11px);
+  right: 68px;
+  line-height: 24px;
+}
+.encgtangerencgtma6 {
+  position: absolute;
+  top: calc(50% - 69px);
+  left: calc(50% + 368px);
+}
+.footer-36 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-white);
+  width: 1920px;
+  height: 290px;
+  font-size: var(--font-size-lg);
+}
+.telecharger {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: calc(50% - 82.5px);
+  line-height: 12px;
+}
+.telecharger-wrapper {
+  position: absolute;
+  bottom: 335px;
+  left: 786px;
+  border-radius: var(--br-xs);
+  background-color: var(--color-forestgreen);
+  width: 349px;
+  height: 50px;
+  color: var(--color-white);
+}
+.logo-web-icon13 {
+  position: absolute;
+  height: calc(100% - 1922px);
+  top: 85px;
+  bottom: 1837px;
+  left: calc(50% - 630px);
+  max-height: 100%;
+  width: 276px;
+  object-fit: cover;
+}
+.offre-de-stage,
+.profil-comptable {
+  position: absolute;
+  top: 230px;
+  left: calc(50% - 288px);
+  font-size: var(--font-size-19xl);
+  color: var(--color-forestgreen);
+}
+.profil-comptable {
+  top: 296px;
+  left: calc(50% - 151px);
+}
+.audinord-est-un {
+  position: absolute;
+  width: calc(100% + 1px);
+  bottom: 0;
+  left: 0;
+  display: inline-block;
+  height: 62px;
+}
+.a-propos-de {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: var(--font-size-9xl);
+  color: var(--color-forestgreen);
+}
+.group-child9 {
+  position: absolute;
+  width: 100%;
+  top: calc(50% - 32.5px);
+  right: 0;
+  left: 0;
+  background-color: var(--color-forestgreen);
+  height: 2px;
+}
+.audinord-est-un-cabinet-spcia-parent {
+  position: absolute;
+  width: calc(100% - 171px);
+  top: calc(50% - 567px);
+  right: 86px;
+  left: 85px;
+  height: 127px;
+}
+.comptable1,
+.stage-de-fin {
+  position: absolute;
+  right: -1px;
+}
+.stage-de-fin {
+  top: 65px;
+}
+.comptable1 {
+  top: calc(50% - 83px);
+}
+.div10 {
+  position: absolute;
+  right: -1px;
+}
+.mois-fin-janvier {
+  top: calc(50% - 137px);
+}
+.mois-fin-janvier,
+.tanger2 {
+  position: absolute;
+  right: -1px;
+}
+.div10 {
+  top: calc(50% - 29px);
+}
+.tanger2 {
+  top: calc(50% + 25px);
+}
+.nature {
+  top: 65px;
+}
+.dure,
+.nature,
+.nombre-de-postes,
+.profil1 {
+  position: absolute;
+  left: 0;
+}
+.profil1 {
+  top: calc(50% - 137px);
+}
+.nombre-de-postes {
+  top: calc(50% - 29px);
+}
+.dure {
+  top: calc(50% - 83px);
+}
+.description-lorem {
+  position: absolute;
+  width: calc(100% + 1px);
+  bottom: 0;
+  left: 0;
+  display: inline-block;
+  height: 123px;
+}
+.lieu1 {
+  position: absolute;
+  top: calc(50% + 25px);
+  left: 0;
+}
+.date-limite-de,
+.div11 {
+  position: absolute;
+  top: calc(50% + 79px);
+}
+.date-limite-de {
+  left: 0;
+}
+.div11 {
+  right: -1px;
+}
+.group-child10 {
+  position: absolute;
+  width: calc(100% - 1px);
+  top: 31px;
+  right: 1px;
+  left: 0;
+  background-color: var(--color-forestgreen);
+  height: 2px;
+}
+.stage-de-fin-detude-parent {
+  position: absolute;
+  width: calc(100% - 170px);
+  top: calc(50% - 395px);
+  right: 85px;
+  left: 85px;
+  height: 512px;
+}
+.formation {
+  top: calc(50% - 106.5px);
+  left: 0;
+}
+.bac5-encg,
+.formation {
+  position: absolute;
+}
+.gestion-financiere-et {
+  position: absolute;
+  top: calc(50% - 106.5px);
+  right: 0;
+}
+.bac5-encg {
+  top: calc(50% - 52.5px);
+  right: -1px;
+}
+.franais-anglais,
+.sans-experiences {
+  position: absolute;
+  right: -1px;
+}
+.sans-experiences {
+  top: calc(50% + 1.5px);
+}
+.franais-anglais {
+  top: calc(50% + 55.5px);
+}
+.experiences {
+  top: calc(50% + 1.5px);
+}
+.experiences,
+.langues,
+.niveau-de-formation {
+  position: absolute;
+  left: 0;
+}
+.niveau-de-formation {
+  top: calc(50% - 52.5px);
+}
+.langues {
+  top: calc(50% + 47.5px);
+}
+.competences-recherchees-parent {
+  position: absolute;
+  width: calc(100% - 170px);
+  top: calc(50% + 162px);
+  right: 85px;
+  left: 85px;
+  height: 343px;
+}
+.pour-postuler {
+  position: absolute;
+  width: calc(100% + 1px);
+  top: calc(50% - 53px);
+  left: 0;
+  display: inline-block;
+  height: 64px;
+}
+.audi-nordgmailcom {
+  position: absolute;
+  top: calc(50% + 43px);
+  right: -1px;
+}
+.scerecherchecooperationencg1 {
+  position: absolute;
+  right: -1px;
+  bottom: 0;
+}
+.instructions-parent {
+  position: absolute;
+  width: calc(100% - 170px);
+  right: 85px;
+  bottom: 225px;
+  left: 85px;
+  height: 236px;
+}
+.logo8 {
+  position: absolute;
+  top: calc(50% - 31px);
+  left: calc(50% - 40.5px);
+}
+.entreprise3 {
+  position: absolute;
+  top: calc(50% - 0px);
+  left: 17px;
+}
+.logo-parent,
+.logo-web-parent {
+  position: absolute;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-dimgray);
+  box-sizing: border-box;
+}
+.logo-parent {
+  top: 85px;
+  right: 86px;
+  width: 213px;
+  height: 100px;
+  font-size: var(--font-size-9xl);
+}
+.logo-web-parent {
+  top: 176px;
+  left: 245px;
+  border-radius: var(--br-8xs);
+  width: 1430px;
+  height: 2022px;
+  font-size: var(--font-size-7xl);
+}
+.base-icon6 {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.user-icon6 {
+  position: absolute;
+  top: calc(50% - 43px);
+  right: 500px;
+  width: 16px;
+  height: 16px;
+}
+.logo-web-icon14 {
+  position: absolute;
+  height: calc(100% - 40px);
+  top: 20px;
+  bottom: 20px;
+  left: calc(50% - 910px);
+  max-height: 100%;
+  width: 276px;
+  object-fit: cover;
+}
+.annonce2,
+.profile3 {
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 321px;
+}
+.profile3 {
+  right: 467px;
+  color: var(--color-dimgray);
+  cursor: pointer;
+}
+.group-child13 {
+  position: absolute;
+  top: calc(50% - 20px);
+  right: 0;
+  border-radius: var(--br-xl);
+  background-color: var(--color-forestgreen);
+  width: 222px;
+  height: 40px;
+}
+.deconnecter2 {
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 25px;
+}
+.rectangle-parent2 {
+  position: absolute;
+  top: calc(50% - 20px);
+  right: 50px;
+  width: 222px;
+  height: 40px;
+  cursor: pointer;
+  color: var(--color-white);
+}
+.nav-bar-36 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 140px;
+  color: var(--color-forestgreen);
+}
+.about-7 {
+  position: relative;
+  background-color: var(--color-white);
+  width: 100%;
+  height: 2628px;
+  text-align: left;
+  font-size: var(--font-size-3xl);
+  color: var(--color-gray);
+  font-family: var(--font-arial);
+}

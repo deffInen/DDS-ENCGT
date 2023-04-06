@@ -152,20 +152,9 @@ button{
 .logos-div{
     margin-left: 70px;
     margin-right: 70px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logos-div div{
-    height: 260px;
-    width: 450px;
-    border: 3px black solid;
-    margin-top: 10px;
-    border-radius: 12px;
+    border: 1px black solid;
     background-color: white;
+    height: 600px;  
 }
 
 /* footer style */
@@ -615,3 +604,164 @@ th, td {
 table img {
     height: 25px;
 }
+
+/* annonces preview page */
+
+.main-content-container-dds{
+    height: 99vw;
+    width: 70vw;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-bg-container-preview {
+    background-color: #F5F5F5;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.info-content-container-dds{
+  height: 98%;
+  width: 98%;
+  background-color: white;
+  border:1px #707070 solid;
+  border-radius: 5px;
+  padding: 6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-content-container-dds p{
+  color: #7F7F7F;
+}
+
+.btn-telecharger{
+  margin: 0 auto;
+  margin-top: 0px;
+  margin-bottom: 24px;
+  color: white;
+  background-color: #529A0B;
+}
+
+.info-content-container-dds img{
+  height: 100px;
+  float: left;
+}
+
+.top-logos{
+  width: 100%;
+}
+
+.company-logo{
+  height: 100px;
+  width: 200px;
+  float: right;
+  border: 1px black dotted;
+  background-color: #7F7F7F;
+}
+
+.annonce-title{
+  text-align: center;
+  width: 100%;
+  margin-top: 3.15%;
+  color: #529A0B;
+}
+
+.annonce-desc{
+  text-align: center;
+  width: 100%;
+  margin-top: 1.7%;
+  color: #529A0B;
+}
+
+.annonce-aprop{
+  width: 100%;
+  margin-top: 7.5%;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+}
+
+.entro-aprop{
+  width: 100%;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  margin-bottom: 3.15%;
+}
+
+.offre-aprop{
+  width: 100%;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  margin-bottom: 3.15%;
+}
+
+.comp-aprop{
+  width: 100%;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  margin-bottom: 3.15%;
+}
+
+.instru-aprop{
+  width: 100%;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  margin-bottom: 3.15%;
+}
+
+.line-break{
+  width: 100%;
+  height: 2px;
+  margin-bottom: 2.4%;
+  background-color: #529A0B;
+}
+
+.key-value-desc{
+  width: 100%;
+  margin-bottom: 1.7%;
+}
+
+.key-desc{
+  float: left;
+}
+
+.value-desc{
+  float: right;
+  max-width: 50%;
+}
+
+.desc-desc{
+  width: 100%;
+}
+
+.emails-instru{
+  width: 100%;
+  margin-top: 2.25%;
+}
+
+.email-instru{
+  width: 100%;
+  margin-bottom: 1%;
+  text-align: end;
+  font-weight: bold;
+}
+
+
+.info-content-container-dds h3{
+  color: #529A0B;
+  font-weight: bold;
+  float: left;
+}
+

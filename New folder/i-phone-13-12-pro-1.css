@@ -1,0 +1,264 @@
+.logo-web-icon26 {
+  position: absolute;
+  height: calc(100% - 1922px);
+  top: 85px;
+  bottom: 1837px;
+  left: calc(50% - 630px);
+  max-height: 100%;
+  width: 276px;
+  object-fit: cover;
+}
+.offre-de-stage2,
+.profil-comptable2 {
+  position: absolute;
+  top: 230px;
+  left: calc(50% - 288px);
+  font-size: var(--font-size-19xl);
+  color: var(--color-forestgreen);
+}
+.profil-comptable2 {
+  top: 296px;
+  left: calc(50% - 151px);
+}
+.audinord-est-un2 {
+  position: absolute;
+  width: calc(100% + 1px);
+  bottom: 0;
+  left: 0;
+  display: inline-block;
+  height: 62px;
+}
+.a-propos-de11 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: var(--font-size-9xl);
+  color: var(--color-forestgreen);
+}
+.group-child32 {
+  position: absolute;
+  width: 100%;
+  top: calc(50% - 32.5px);
+  right: 0;
+  left: 0;
+  background-color: var(--color-forestgreen);
+  height: 2px;
+}
+.audinord-est-un-cabinet-spcia-container {
+  position: absolute;
+  width: calc(100% - 171px);
+  top: calc(50% - 567px);
+  right: 86px;
+  left: 85px;
+  height: 127px;
+}
+.comptable3,
+.stage-de-fin2 {
+  position: absolute;
+  right: -1px;
+}
+.stage-de-fin2 {
+  top: 65px;
+}
+.comptable3 {
+  top: calc(50% - 83px);
+}
+.div23 {
+  position: absolute;
+  right: -1px;
+}
+.mois-fin-janvier2 {
+  top: calc(50% - 137px);
+}
+.mois-fin-janvier2,
+.tanger4 {
+  position: absolute;
+  right: -1px;
+}
+.div23 {
+  top: calc(50% - 29px);
+}
+.tanger4 {
+  top: calc(50% + 25px);
+}
+.nature2,
+.profil3 {
+  position: absolute;
+  left: 0;
+}
+.nature2 {
+  top: 65px;
+}
+.profil3 {
+  top: calc(50% - 137px);
+}
+.dure2,
+.nombre-de-postes4 {
+  position: absolute;
+  left: 0;
+}
+.nombre-de-postes4 {
+  top: calc(50% - 29px);
+}
+.dure2 {
+  top: calc(50% - 83px);
+}
+.description-lorem2 {
+  position: absolute;
+  width: calc(100% + 1px);
+  bottom: 0;
+  left: 0;
+  display: inline-block;
+  height: 123px;
+}
+.lieu4 {
+  position: absolute;
+  top: calc(50% + 25px);
+  left: 0;
+}
+.date-limite-de3,
+.div24 {
+  position: absolute;
+  top: calc(50% + 79px);
+}
+.date-limite-de3 {
+  left: 0;
+}
+.div24 {
+  right: -1px;
+}
+.group-child33 {
+  position: absolute;
+  width: calc(100% - 1px);
+  top: 31px;
+  right: 1px;
+  left: 0;
+  background-color: var(--color-forestgreen);
+  height: 2px;
+}
+.stage-de-fin-detude-container {
+  position: absolute;
+  width: calc(100% - 170px);
+  top: calc(50% - 395px);
+  right: 85px;
+  left: 85px;
+  height: 512px;
+}
+.formation4 {
+  top: calc(50% - 106.5px);
+  left: 0;
+}
+.bac5-encg2,
+.formation4 {
+  position: absolute;
+}
+.gestion-financiere-et2 {
+  position: absolute;
+  top: calc(50% - 106.5px);
+  right: 0;
+}
+.bac5-encg2 {
+  top: calc(50% - 52.5px);
+  right: -1px;
+}
+.franais-anglais2,
+.sans-experiences2 {
+  position: absolute;
+  right: -1px;
+}
+.sans-experiences2 {
+  top: calc(50% + 1.5px);
+}
+.franais-anglais2 {
+  top: calc(50% + 55.5px);
+}
+.experiences2 {
+  top: calc(50% + 1.5px);
+}
+.experiences2,
+.langues2,
+.niveau-de-formation3 {
+  position: absolute;
+  left: 0;
+}
+.niveau-de-formation3 {
+  top: calc(50% - 52.5px);
+}
+.langues2 {
+  top: calc(50% + 47.5px);
+}
+.competences-recherchees-container {
+  position: absolute;
+  width: calc(100% - 170px);
+  top: calc(50% + 162px);
+  right: 85px;
+  left: 85px;
+  height: 343px;
+}
+.pour-postuler2 {
+  position: absolute;
+  width: calc(100% + 1px);
+  top: calc(50% - 53px);
+  left: 0;
+  display: inline-block;
+  height: 64px;
+}
+.audi-nordgmailcom2 {
+  position: absolute;
+  top: calc(50% + 43px);
+  right: -1px;
+}
+.scerecherchecooperationencg3 {
+  position: absolute;
+  right: -1px;
+  bottom: 0;
+}
+.instructions-container {
+  position: absolute;
+  width: calc(100% - 170px);
+  right: 85px;
+  bottom: 225px;
+  left: 85px;
+  height: 236px;
+}
+.logo10 {
+  position: absolute;
+  top: calc(50% - 31px);
+  left: calc(50% - 40.5px);
+}
+.entreprise5 {
+  position: absolute;
+  top: calc(50% - 0px);
+  left: 17px;
+}
+.logo-parent1 {
+  position: absolute;
+  top: 85px;
+  right: 86px;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-dimgray);
+  box-sizing: border-box;
+  width: 213px;
+  height: 100px;
+  font-size: var(--font-size-9xl);
+}
+.iphone-13-12-pro-1,
+.logo-web-container {
+  background-color: var(--color-white);
+  height: 2022px;
+}
+.logo-web-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-8xs);
+  width: 1430px;
+}
+.iphone-13-12-pro-1 {
+  position: relative;
+  width: 100%;
+  text-align: left;
+  font-size: var(--font-size-7xl);
+  color: var(--color-gray);
+  font-family: var(--font-arial);
+}
