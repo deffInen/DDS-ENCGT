@@ -644,6 +644,7 @@ table img {
 }
 
 .btn-telecharger{
+  cursor: pointer;
   margin: 0 auto;
   margin-top: 0px;
   margin-bottom: 24px;
@@ -1037,4 +1038,26 @@ table img {
   display: grid;
   place-items: center;
   grid-template-areas: "inner-div";
+}
+
+.info-content-container-success-msg{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-title{
+  color: #707070;
+  font-weight: bold;
+  font-size: larger;
+}
+
+.success-msg{
+  color: #707070;
+  width: 50%;
+  text-align: center;
+  margin: 20px;
 }

@@ -129,10 +129,10 @@
                         <p>SUIVANT</p>
                     </div>
                     <div class="btn-action" id="btn-preview-sub-stp" >
-                        <div class="btn-main-stp">
+                        <div class="btn-main-stp" onclick="previewDss()">
                             <p>PREVIEW</p>
                         </div>
-                        <div class="btn-main-stp" onClick="ddsSubmit()">
+                        <div class="btn-main-stp" onclick="ddsSubmit()">
                             <p>SUBMIT</p>
                         </div>
                     </div>
@@ -190,7 +190,8 @@
 </body>
 <script>
     var stage = 1;
-    var btnNxt = true
+    var btnNxt = true;
+    var dds;
     var steps = [document.getElementById("ajt-flds-total-stp-one"),
         document.getElementById("ajt-flds-total-stp-two"),
         document.getElementById("ajt-flds-total-stp-tree")];
@@ -229,7 +230,8 @@
         }
     }
 
-    function ddsSubmit(){
+
+    function ddsCheck(){
 
         var entrepriseName = document.forms["ajt_dds"]["entreprise_nom"];
         var annonceType = document.forms["ajt_dds"]["Type_annance"];
@@ -249,7 +251,7 @@
         var experience = document.forms["ajt_dds"]["niveau-de-experience"];
         var langues = document.forms["ajt_dds"]["langues"];
 
-        var stpOneFlds = [entropriseEmail,entrepriseInfo,annonceType,entrepriseName];
+        var stpOneFlds = [entrepriseName,entropriseEmail,entrepriseInfo,annonceType];
         var stpTwoFlds = [postNature,postDescription,postLocation,postNumber,limiteDate,profile,Duration];
         var stpTreeFlds = [formation,formationLevel,experience,langues];
 
@@ -269,23 +271,33 @@
             if(fld.value == null || fld.value == ""){
                 setStep(1);
                 setRedBorders(fld);
-                return;
+                return false;
             }
         }
         for(let fld of stpTwoFlds){
             if(fld.value == null || fld.value == ""){
                 setStep(2);
                 setRedBorders(fld);
-                return;
+                return false;
             }
         }
         for(let fld of stpTreeFlds){
             if(fld.value == null || fld.value == ""){
                 setStep(3);
                 setRedBorders(fld);
-                return;
+                return false;
             }
         }
+
+        var stpOneFldsValues = [entrepriseName.value,entropriseEmail.value,entrepriseInfo.value,annonceType.value];
+        var stpTwoFldsValues = [postNature.value,postDescription.value,postLocation.value,postNumber.value,limiteDate.value,profile.value,Duration.value];
+        var stpTreeFldsValues = [formation.value,formationLevel.value,experience.value,langues.value];
+
+        dds = {
+            "stpOneFlds" : stpOneFldsValues,
+            "stpTwoFlds" : stpTwoFldsValues,
+            "stpTreeFlds": stpTreeFldsValues
+        };
 
         function setRedBorders(field){
             field.style.borderColor = "red";
@@ -296,9 +308,18 @@
                 field.style.borderColor = "#529A0B";
             }
             else
-            field.style.borderColor = "red";
+                field.style.borderColor = "red";
         }
-        
+        return true;
+    }
+
+    function previewDss(){
+        if(ddsCheck())
+            window.open("ajPreview.html?dds="+JSON.stringify(dds), "_blank");
+    }
+
+    function ddsSubmit(){
+        ddsCheck()
     }
 </script>
 </html>
