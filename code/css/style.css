@@ -18,8 +18,7 @@ nav div{
     height: 100px;
     width: auto;
     position: relative;
-
-
+    box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -319,7 +318,6 @@ button{
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
   }
 
@@ -330,97 +328,46 @@ button{
   .wrapper{
     margin-top: 32px;
     margin-bottom: 32px;
-    overflow: hidden;
-    max-width: 775px;
+    width: 50%;
     background: #fff;
     border:1px #529A0B solid;
     border-radius: 12px;
     padding: 30px;
     box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
   }
 
-  .wrapper .slide-controls{
-    position: relative;
-    display: flex;
-    height: 50px;
-    width: 700px;
-    overflow: hidden;
-    margin: 0px 0 10px 0;
-    justify-content: space-between;
-  }
-  .slide-controls .slide{
-    height: 100%;
-    width: 100%;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 500;
-    text-align: center;
-    line-height: 48px;
-    cursor: pointer;
-    z-index: 1;
-    transition: all 0.6s ease;
-  }
-  .slide-controls label.signup{
-    color: #000;
-  }
-  .slide-controls .slider-tab{
-    position: absolute;
-    height: 100%;
-    width: 50%;
-    left: 0;
-    z-index: 0;
-    transition: all 0.6s cubic-bezier(0,1,0,1);
-    border-bottom: 3px #529A0B solid;
-  }
-  input[type="radio"]{
-    display: none;
-  }
-  #signup:checked ~ .slider-tab{
-    left: 50%;
-  }
-  #signup:checked ~ label.signup{
-    color: #529A0B;
-    cursor: default;
-    user-select: none;
-  }
-  #signup:checked ~ label.login{
-    color: #7F7F7F;
-  }
-  #login:checked ~ label.signup{
-    color: #7F7F7F;
-  }
-  #login:checked ~ label.login{
-    color: #529A0B;
-    cursor: default;
-    user-select: none;
-  }
   .wrapper .form-container{
     width: 100%;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .form-container .form-inner{
     display: flex;
-    width: 200%;
+    width: 70%;
   }
   .form-container .form-inner form{
-    width: 50%;
-    transition: all 0.6s cubic-bezier(0,-1,0,1);
+    width: 100%;
   }
   .form-inner form .field{
     height: 50px;
     width: 100%;
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .form-inner form .field input{
     height: 100%;
-    width: 100%;
+    width: 98%;
     outline: none;
     padding-left: 15px;
     border-radius: 5px;
     border: 1px solid lightgrey;
     border-bottom-width: 2px;
     font-size: 17px;
-    transition: all 0.3s ease;
   }
   .form-inner form .field input:focus{
     border-color: #529A0B;
@@ -428,7 +375,6 @@ button{
   }
   .form-inner form .field input::placeholder{
     color: #999;
-    transition: all 0.3s ease;
   }
   form .field input:focus::placeholder{
     color: #b3b3b3;
@@ -482,6 +428,14 @@ button{
     font-weight: 500;
     cursor: pointer;
   }
+
+.connect-title{
+  color: #529A0B;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
 
   /* nav bar */
 
