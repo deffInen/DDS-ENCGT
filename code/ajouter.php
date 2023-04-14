@@ -1,12 +1,209 @@
+<?php
+
+// Include config file
+require_once "config.php";
+
+// Initialize the session
+session_start();
+
+// Check if the user is logged in, if not then redirect him to login page
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: connexion.php");
+    exit;
+}
+
+// Define variables and initialize with empty values
+$useremail = $announce = "";
+$useremail_err = $annonce_err = "";
+$entrepriseName = $announceType = $entrepriseInfo = $entropriseEmail = "";
+$postNature = $postDescription = $postLocation = $postLimiteDate = $postNumber = $postDuration = $postProfile = "";
+$targetFormation = $targetFormationLevel = $targetExperience = $targetLangues = $targetExtras = "";
+$announce_err_state = false;
+
+// Processing form data when form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $useremail = $_SESSION["useremail"];
+
+    // Check if enteprise name is empty
+    if (empty(trim($_POST["entreprise_nom"]))) {
+        $announce_err_state = true;
+    } else {
+        $entrepriseName = mysqli_real_escape_string($link, trim($_POST["entreprise_nom"]));
+    }
+
+    // Check if announce type is empty
+    if (empty(trim($_POST["Type_annance"]))) {
+        $announce_err_state = true;
+    } else {
+        $announceType = mysqli_real_escape_string($link, trim($_POST["Type_annance"]));
+    }
+
+    // Check if enteprise info is empty
+    if (empty(trim($_POST["entreprise_apropos"]))) {
+        $announce_err_state = true;
+    } else {
+        $entrepriseInfo = mysqli_real_escape_string($link, trim($_POST["entreprise_apropos"]));
+    }
+
+    // Check if post description is empty
+    if (empty(trim($_POST["description-de-post"]))) {
+        $announce_err_state = true;
+    } else {
+        $postDescription = mysqli_real_escape_string($link, trim($_POST["description-de-post"]));
+    }
+
+    // Check if post nature is empty
+    if (empty(trim($_POST["nature_de_post"]))) {
+        $announce_err_state = true;
+    } else {
+        $postNature = mysqli_real_escape_string($link, trim($_POST["nature_de_post"]));
+    }
+
+    // Check if post location is empty
+    if (empty(trim($_POST["lieu"]))) {
+        $announce_err_state = true;
+    } else {
+        $postLocation = mysqli_real_escape_string($link, trim($_POST["lieu"]));
+    }
+
+    // Check if limite date is empty
+    if (empty(trim($_POST["date-limite"]))) {
+        $announce_err_state = true;
+    } else {
+        $postLimiteDate = mysqli_real_escape_string($link, trim($_POST["date-limite"]));
+    }
+
+    // Check if enteprisename is empty
+    if (empty(trim($_POST["nombre_de_post"]))) {
+        $announce_err_state = true;
+    } else {
+        $postNumber = mysqli_real_escape_string($link, trim($_POST["nombre_de_post"]));
+    }
+
+    // Check if post number is empty
+    if (empty(trim($_POST["nature_de_post"]))) {
+        $announce_err_state = true;
+    } else {
+        $postNature = mysqli_real_escape_string($link, trim($_POST["nature_de_post"]));
+    }
+
+    // Check if post duration is empty
+    if (empty(trim($_POST["duree"]))) {
+        $announce_err_state = true;
+    } else {
+        $postDuration = mysqli_real_escape_string($link, trim($_POST["duree"]));
+    }
+
+    // Check if post profile is empty
+    if (empty(trim($_POST["profile"]))) {
+        $announce_err_state = true;
+    } else {
+        $postProfile = mysqli_real_escape_string($link, trim($_POST["profile"]));
+    }
+
+    // Check if formation is empty
+    if (empty(trim($_POST["formation"]))) {
+        $announce_err_state = true;
+    } else {
+        $targetFormation = mysqli_real_escape_string($link, trim($_POST["formation"]));
+    }
+
+    // Check if formation level is empty
+    if (empty(trim($_POST["niveau-de-formation"]))) {
+        $announce_err_state = true;
+    } else {
+        $targetFormationLevel = mysqli_real_escape_string($link, trim($_POST["niveau-de-formation"]));
+    }
+
+    // Check if experience is empty
+    if (empty(trim($_POST["niveau-de-experience"]))) {
+        $announce_err_state = true;
+    } else {
+        $targetExperience = mysqli_real_escape_string($link, trim($_POST["niveau-de-experience"]));
+    }
+
+    // Check if language is empty
+    if (empty(trim($_POST["langues"]))) {
+        $announce_err_state = true;
+    } else {
+        $targetProfile = mysqli_real_escape_string($link, trim($_POST["langues"]));
+    }
+
+    // Check if extras is empty
+    if (!empty(trim($_POST["langues"]))) {
+        $targetExtras = mysqli_real_escape_string($link, trim($_POST["extras"]));
+    }
+
+    // Validate credentials
+    if (empty($useremail_err) && !$announce_err_state) {
+        // create announce JSON
+        $announce = array(
+            "entreprise_info" => array(
+                "entreprise_name" => $entrepriseName,
+                "entreprise_info" => $entrepriseInfo,
+                "entreprise_email" => $entropriseEmail,
+                "announce_type" => $announceType
+            ),
+            "offer_info" => array(
+                "post_nature" => $postNature,
+                "post_description" => $postDescription,
+                "post_location" => $postLocation,
+                "post_number" => $postNumber,
+                "post_profile" => $postProfile,
+                "post_duration" => $postDuration,
+                "post_limite_date" => $postLimiteDate
+            ),
+            "target_info" => array(
+                "target_formation" => $entrepriseName,
+                "target_formation_level" => $entrepriseInfo,
+                "target_experience" => $entropriseEmail,
+                "target_languages" => $targetLangues,
+                "target_extras" => $targetExtras
+            ),
+        );
+
+        // Prepare a select statement
+        $sql = "INSERT INTO announces (email, announce) VALUES (?, ?)";
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "ss", $param_useremail, $param_announce);
+
+            // Set parameters
+
+            $param_useremail = $useremail;
+            $param_announce = json_encode($announce);
+
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                // Redirect to login page
+                header("location: announces.php");
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+
+    // Close connection
+    mysqli_close($link);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=<?php echo time(); ?>">
 </head>
+
 <body>
     <div class="main-bg-container">
         <nav>
@@ -18,14 +215,14 @@
                     <li><a href="/DDS/DDS-ENCGT/code/logout.php" class="btn-decconecter">DECONECTER</a></li>
                     <li><a href="annances.html" class="menu-option">ANNONCES</a></li>
                     <li><a href="profile.html" class="menu-option" id="active">PROFILE</a></li>
-                </ul> 
+                </ul>
             </div>
         </nav>
-        <form class="main-content-container-ajt" name="ajt_dds">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="main-content-container-ajt" id="main-content-container-ajt" name="ajt_dds">
             <div class="info-content-container-ajt-stp">
                 <div class="stp-container" onclick="setStep(1)">
                     <div class="numb-container" id="numb-container-one">
-                        <p  id="numb-p-one">1</p>
+                        <p id="numb-p-one">1</p>
                     </div>
                     <div class="txt-container">
                         <p>A PROPOS DE L'ENTREPRISE</p>
@@ -33,7 +230,7 @@
                 </div>
                 <div class="stp-container" onclick="setStep(2)">
                     <div class="numb-container" id="numb-container-two">
-                        <p  id="numb-p-two">2</p>
+                        <p id="numb-p-two">2</p>
                     </div>
                     <div class="txt-container">
                         <p>A PROPOS DE L'OFFRE</p>
@@ -68,7 +265,7 @@
                         <div class="add-logo-entreprise">
                             <img src="css/assets/iconmonstr-picture-10.svg" alt="add logo">
                             <p>ajouter votre logo d'entreprise</p>
-                            <input type="file" name="file" id="file" class="inputfile"/>
+                            <input type="file" name="file" id="file" class="inputfile" />
                             <label for="file">AJOUTER</label>
                         </div>
                     </div>
@@ -128,16 +325,17 @@
                     <div class="btn-main-stp" id="btn-main-stp" onclick="setStep(stage+1)">
                         <p>SUIVANT</p>
                     </div>
-                    <div class="btn-action" id="btn-preview-sub-stp" >
+                    <div class="btn-action" id="btn-preview-sub-stp">
                         <div class="btn-main-stp" onclick="previewDss()">
                             <p>PREVIEW</p>
                         </div>
                         <div class="btn-main-stp" onclick="ddsSubmit()">
                             <p>SUBMIT</p>
+                            <input type="submit" style="visibility: hidden;">
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </form>
     </div>
@@ -148,13 +346,13 @@
                 <div class="footer-section-one">
                     <div class="footer-section-one-container">
                         <img src="https://encgt.ma/wp-content/uploads/2020/06/logo-web.png" alt="LOGO">
-                        <p>L’ENCG Tanger est un établissement d’enseignement supérieur public qui a 
-                        pour mission de former les lauréats aux métiers du commerce et de gestion.</p>
+                        <p>L’ENCG Tanger est un établissement d’enseignement supérieur public qui a
+                            pour mission de former les lauréats aux métiers du commerce et de gestion.</p>
                     </div>
-                    
+
                 </div>
                 <div class="footer-section-filler">
-                    
+
                 </div>
                 <div class="footer-section-two">
                     <div class="footer-section-two-container">
@@ -183,7 +381,7 @@
                     <img src="css/assets/Path 2.svg" alt="logo2">
                     <img src="css/assets/Path 3.svg" alt="logo1">
                 </div>
-                
+
             </div>
         </footer>
     </div>
@@ -194,25 +392,29 @@
     var dds;
     var steps = [document.getElementById("ajt-flds-total-stp-one"),
         document.getElementById("ajt-flds-total-stp-two"),
-        document.getElementById("ajt-flds-total-stp-tree")];
+        document.getElementById("ajt-flds-total-stp-tree")
+    ];
     var stepsBg = [document.getElementById("numb-container-one"),
         document.getElementById("numb-container-two"),
-        document.getElementById("numb-container-tree")];
+        document.getElementById("numb-container-tree")
+    ];
     var stepsP = [document.getElementById("numb-p-one"),
         document.getElementById("numb-p-two"),
-        document.getElementById("numb-p-tree")];
-    function setStep(stageNum){
-        if(stageNum < 3)
+        document.getElementById("numb-p-tree")
+    ];
+
+    function setStep(stageNum) {
+        if (stageNum < 3)
             btnNxt = true;
         else
             btnNxt = false;
-        if(stageNum != stage && stageNum < 4){
-            steps[stage-1].style.visibility = "hidden";
-            stepsBg[stage-1].style.backgroundColor = "#ffffff";
-            stepsP[stage-1].style.color = "#529A0B";
-            steps[stageNum-1].style.visibility = "visible";
-            stepsBg[stageNum-1].style.backgroundColor = "#529A0B"
-            stepsP[stageNum-1].style.color = "#ffffff";
+        if (stageNum != stage && stageNum < 4) {
+            steps[stage - 1].style.visibility = "hidden";
+            stepsBg[stage - 1].style.backgroundColor = "#ffffff";
+            stepsP[stage - 1].style.color = "#529A0B";
+            steps[stageNum - 1].style.visibility = "visible";
+            stepsBg[stageNum - 1].style.backgroundColor = "#529A0B"
+            stepsP[stageNum - 1].style.color = "#ffffff";
             stage = stageNum;
         }
         setStepBtns(btnNxt);
@@ -220,18 +422,19 @@
     stepsBg[0].style.backgroundColor = "#529A0B";
     stepsP[0].style.color = "#ffffff";
     setStep(stage);
-    function setStepBtns(isBtnNxt){
-        if(isBtnNxt){
+
+    function setStepBtns(isBtnNxt) {
+        if (isBtnNxt) {
             document.getElementById("btn-main-stp").style.visibility = "visible";
             document.getElementById("btn-preview-sub-stp").style.visibility = "hidden";
-        }else{
+        } else {
             document.getElementById("btn-main-stp").style.visibility = "hidden";
             document.getElementById("btn-preview-sub-stp").style.visibility = "visible";
         }
     }
 
 
-    function ddsCheck(){
+    function ddsCheck() {
 
         var entrepriseName = document.forms["ajt_dds"]["entreprise_nom"];
         var annonceType = document.forms["ajt_dds"]["Type_annance"];
@@ -251,75 +454,85 @@
         var experience = document.forms["ajt_dds"]["niveau-de-experience"];
         var langues = document.forms["ajt_dds"]["langues"];
 
-        var stpOneFlds = [entrepriseName,entropriseEmail,entrepriseInfo,annonceType];
-        var stpTwoFlds = [postNature,postDescription,postLocation,postNumber,limiteDate,profile,Duration];
-        var stpTreeFlds = [formation,formationLevel,experience,langues];
+        var stpOneFlds = [entrepriseName, entropriseEmail, entrepriseInfo, annonceType];
+        var stpTwoFlds = [postNature, postDescription, postLocation, postNumber, limiteDate, profile, Duration];
+        var stpTreeFlds = [formation, formationLevel, experience, langues];
 
-        for(let fld of stpOneFlds){
-            fld.addEventListener("focusout", (event) => {redCheck(fld);});
+        for (let fld of stpOneFlds) {
+            fld.addEventListener("focusout", (event) => {
+                redCheck(fld);
+            });
         }
 
-        for(let fld of stpTwoFlds){
-            fld.addEventListener("focusout", (event) => {redCheck(fld);});
+        for (let fld of stpTwoFlds) {
+            fld.addEventListener("focusout", (event) => {
+                redCheck(fld);
+            });
         }
 
-        for(let fld of stpTreeFlds){
-            fld.addEventListener("focusout", (event) => { redCheck(fld);});
+        for (let fld of stpTreeFlds) {
+            fld.addEventListener("focusout", (event) => {
+                redCheck(fld);
+            });
         }
 
-        for(let fld of stpOneFlds){
-            if(fld.value == null || fld.value == ""){
+        for (let fld of stpOneFlds) {
+            if (fld.value == null || fld.value == "") {
                 setStep(1);
                 setRedBorders(fld);
                 return false;
             }
         }
-        for(let fld of stpTwoFlds){
-            if(fld.value == null || fld.value == ""){
+        for (let fld of stpTwoFlds) {
+            if (fld.value == null || fld.value == "") {
                 setStep(2);
                 setRedBorders(fld);
                 return false;
             }
         }
-        for(let fld of stpTreeFlds){
-            if(fld.value == null || fld.value == ""){
+        for (let fld of stpTreeFlds) {
+            if (fld.value == null || fld.value == "") {
                 setStep(3);
                 setRedBorders(fld);
                 return false;
             }
         }
 
-        var stpOneFldsValues = [entrepriseName.value,entropriseEmail.value,entrepriseInfo.value,annonceType.value];
-        var stpTwoFldsValues = [postNature.value,postDescription.value,postLocation.value,postNumber.value,limiteDate.value,profile.value,Duration.value];
-        var stpTreeFldsValues = [formation.value,formationLevel.value,experience.value,langues.value];
+        var stpOneFldsValues = [entrepriseName.value, entropriseEmail.value, entrepriseInfo.value, annonceType.value];
+        var stpTwoFldsValues = [postNature.value, postDescription.value, postLocation.value, postNumber.value, limiteDate.value, profile.value, Duration.value];
+        var stpTreeFldsValues = [formation.value, formationLevel.value, experience.value, langues.value];
 
         dds = {
-            "stpOneFlds" : stpOneFldsValues,
-            "stpTwoFlds" : stpTwoFldsValues,
+            "stpOneFlds": stpOneFldsValues,
+            "stpTwoFlds": stpTwoFldsValues,
             "stpTreeFlds": stpTreeFldsValues
         };
 
-        function setRedBorders(field){
+        function setRedBorders(field) {
             field.style.borderColor = "red";
         }
 
-        function redCheck(field){
-            if(field.value != null && field.value != ""){
+        function redCheck(field) {
+            if (field.value != null && field.value != "") {
                 field.style.borderColor = "#529A0B";
-            }
-            else
+            } else
                 field.style.borderColor = "red";
         }
         return true;
     }
 
-    function previewDss(){
-        if(ddsCheck())
-            window.open("ajPreview.html?dds="+JSON.stringify(dds), "_blank");
+    function previewDss() {
+        if (ddsCheck())
+            window.open("ajPreview.html?dds=" + JSON.stringify(dds), "_blank");
     }
 
-    function ddsSubmit(){
-        ddsCheck()
+    function ddsSubmit() {
+        if (ddsCheck()) {
+            var form = document.getElementById("main-content-container-ajt");
+            form.submit();
+        }
+
     }
 </script>
+
 </html>

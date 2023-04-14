@@ -22,14 +22,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty(trim($_POST["user_email"]))) {
         $useremail_err = "Please enter username.";
     } else {
-        $useremail = trim($_POST["user_email"]);
+        $useremail = mysqli_real_escape_string($link,trim($_POST["user_email"]));
     }
 
     // Check if password is empty
     if (empty(trim($_POST["password"]))) {
         $password_err = "Please enter your password.";
     } else {
-        $password = trim($_POST["password"]);
+        $password = mysqli_real_escape_string($link,trim($_POST["password"]));
     }
 
     // Validate credentials
@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["useremail"] = $useremail;
 
                             // Redirect user to welcome page
-                            header("location: welcome.php");
+                            header("location: announces.php");
                         } else {
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
@@ -125,12 +125,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="login">
                             <div class="field">
                                 <input type="text" name="user_email" placeholder="Email Address" required>
-                                <span class="invalid-feedback"><?php echo $useremail_err; ?></span>
                             </div>
+                            <span class="invalid-feedback"><?php echo $useremail_err; ?></span>
                             <div class="field">
                                 <input type="password" name="password" placeholder="Password" required>
-                                <span class="invalid-feedback"><?php echo $password_err; ?></span>
                             </div>
+                            <span class="invalid-feedback"><?php echo $password_err; ?></span>
                             <div class="pass-link">
                                 <a href="#">Forgot password?</a>
                             </div>

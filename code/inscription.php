@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (!preg_match('/^[a-zA-Z0-9_ ]+$/', trim($_POST["user_name"]))) {
         $username_err = "Username can only contain letters, numbers, and underscores.";
     }else{
-        $username = trim($_POST["user_name"]);
+        $username = mysqli_real_escape_string($link,trim($_POST["user_name"]));
     }
 
     // Validate password
@@ -25,14 +25,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (strlen(trim($_POST["user_password"])) < 6) {
         $password_err = "Password must have atleast 6 characters.";
     } else {
-        $password = trim($_POST["user_password"]);
+        $password = mysqli_real_escape_string($link,trim($_POST["user_password"]));
     }
 
     // Validate user post
     if (empty(trim($_POST["user_post"]))) {
         $userpost_err = "Please add post.";
     }else{
-        $userpost = trim($_POST["user_post"]);
+        $userpost = mysqli_real_escape_string($link,trim($_POST["user_post"]));
     }
     
     // Validate user email
@@ -41,21 +41,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }elseif(!filter_var(trim($_POST["user_email"]), FILTER_VALIDATE_EMAIL)) {
         $useremail_err = "Please add a valid email.";
     }else{
-        $useremail = trim($_POST["user_email"]);
+        // Prepare a select statement
+        $sql = "SELECT id FROM users WHERE email = ?";
+        
+        if($stmt = mysqli_prepare($link, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_username);
+            
+            // Set parameters
+            $param_username = mysqli_real_escape_string($link,trim($_POST["user_email"]));
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                /* store result */
+                mysqli_stmt_store_result($stmt);
+                
+                if(mysqli_stmt_num_rows($stmt) == 1){
+                    $useremail_err = "This email is already taken.";
+                } else{
+                    $useremail = mysqli_real_escape_string($link,trim($_POST["user_email"]));
+                }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
     }
 
     // Validate entreprise name
     if (empty(trim($_POST["entreprise_name"]))) {
         $entreprisename_err = "Please add entrepise name.";
     }else{
-        $entreprisename = trim($_POST["entreprise_name"]);
+        $entreprisename = mysqli_real_escape_string($link,trim($_POST["entreprise_name"]));
     }
 
     // Validate user phone
     if (empty(trim($_POST["user_phone"]))) {
         $userpassword_err = "Please add a phone nomber.";
     }else{
-        $userphone = trim($_POST["user_phone"]);
+        $userphone = mysqli_real_escape_string($link,trim($_POST["user_phone"]));
     }
 
     // Check input errors before inserting in database
@@ -130,29 +156,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-inner">
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="signup">
                             <div class="field">
-                                <input type="text" name="user_name" placeholder="Nom et Prenom" required>
-                                <span class="invalid-feedback"><?php echo $username_err; ?></span>
+                                <input type="text" name="user_name" placeholder="Nom et Prenom" required>  
                             </div>
+                            <span class="invalid-feedback"><?php echo $username_err; ?></span>
                             <div class="field">
-                                <input type="text" name="entreprise_name" placeholder="Entreprise" required>
-                                <span class="invalid-feedback"><?php echo $entreprisename_err; ?></span>
+                                <input type="text" name="entreprise_name" placeholder="Entreprise" required>  
                             </div>
+                            <span class="invalid-feedback"><?php echo $entreprisename_err; ?></span>
                             <div class="field">
                                 <input type="text" name="user_post" placeholder="Post" required>
-                                <span class="invalid-feedback"><?php echo $userpost_err; ?></span>
                             </div>
+                            <span class="invalid-feedback"><?php echo $userpost_err; ?></span>
                             <div class="field">
                                 <input type="tel" name="user_phone" placeholder="Tel" required>
-                                <span class="invalid-feedback"><?php echo $userphone_err; ?></span>
                             </div>
+                            <span class="invalid-feedback"><?php echo $userphone_err; ?></span>
                             <div class="field">
                                 <input type="email" name="user_email" placeholder="Email" required>
-                                <span class="invalid-feedback"><?php echo $useremail_err; ?></span>
                             </div>
+                            <span class="invalid-feedback"><?php echo $useremail_err; ?></span>
                             <div class="field">
                                 <input type="password" name="user_password" placeholder="Password" required>
-                                <span class="invalid-feedback"><?php echo $password_err; ?></span>
                             </div>
+                            <span class="invalid-feedback"><?php echo $password_err; ?></span>
                             <div class="field btn">
                                 <div class="btn-layer"></div>
                                 <input type="submit" value="INSCRIRE">

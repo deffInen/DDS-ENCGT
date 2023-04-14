@@ -558,6 +558,7 @@ th, td {
 
 table img {
     height: 25px;
+    cursor: pointer;
 }
 
 /* annonces preview page */
@@ -764,7 +765,7 @@ table img {
   border: 1px #529A0B solid;
   background-color: white;
   border-radius: 12px;
-  height: 85%;
+  height: 75%;
   width: 100%;
   padding: 30px;
   display: grid;
@@ -1014,4 +1015,11 @@ table img {
   width: 50%;
   text-align: center;
   margin: 20px;
+}
+
+.msg_no_result{
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 100%;
+  text-align: center;
 }
