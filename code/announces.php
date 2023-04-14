@@ -12,7 +12,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 
-$useremail = "";
 $useremail = $_SESSION["useremail"];
 
 ?>
@@ -36,9 +35,9 @@ $useremail = $_SESSION["useremail"];
                     <img src="https://encgt.ma/wp-content/uploads/2020/06/logo-web.png" alt="LOGO">
                 </a>
                 <ul>
-                    <li><a href="/DDS/DDS-ENCGT/code/logout.php" class="btn-decconecter">DECONECTER</a></li>
-                    <li><a href="" class="menu-option" id="active">ANNONCES</a></li>
-                    <li><a href="profile.html" class="menu-option">PROFILE</a></li>
+                    <li><a href="/DDS/DDS-ENCGT/code/logout.php" class="btn-decconecter">DECCONECTER</a></li>
+                    <li><a href="/DDS/DDS-ENCGT/code/announces.php" class="menu-option" id="active">ANNONCES</a></li>
+                    <li><a href="/DDS/DDS-ENCGT/code/profile.php" class="menu-option">PROFILE</a></li>
                 </ul>
             </div>
         </nav>
@@ -103,11 +102,15 @@ $useremail = $_SESSION["useremail"];
                                     <td>' . $annonce_obj->offer_info->post_location . '</td>
                                     <td>' . $annonce_obj->offer_info->post_limite_date . '</td>
                                     <td>
-                                        <img src="css/assets/visibility_FILL1_wght400_GRAD0_opsz48.svg" alt="Voir" id="' . $id . '">
-                                        
-
+                                        <img src="css/assets/visibility_FILL1_wght400_GRAD0_opsz48.svg" alt="Voir" id="' . $id . '" onclick="view_item()">
+                                        <form method="post" action="preview.php" style="visibility=hidden;" id="view_item_form">
+                                            <input type="hidden" name="announce_id" value="' . $id . '">
+                                        </form>
                                     </td>
-                                    <td><img src="css/assets/edit_FILL1_wght400_GRAD0_opsz48.svg" alt="edit" id="' . $id . '"></td>
+                                    <td>
+                                        <img src="css/assets/edit_FILL1_wght400_GRAD0_opsz48.svg" alt="edit" id="' . $id . '">
+                                        
+                                    </td>
                                     <td><img src="css/assets/Mask Group 3.svg" alt="delete" id="' . $id . '"  onclick="delete_item()">
                                         <form method="post" action="deleteAnnounce.php" style="visibility=hidden;" id="delete_item_form">
                                             <input type="hidden" name="announce_id" value="' . $id . '">
@@ -190,6 +193,12 @@ $useremail = $_SESSION["useremail"];
                 var delete_item_form = document.getElementById("delete_item_form");
                 delete_item_form.submit();
             }
+
+            function view_item() {
+                var view_item_form = document.getElementById("view_item_form");
+                view_item_form.submit();
+            }
+
         </script>
 </body>
 </html>

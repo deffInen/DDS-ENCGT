@@ -21,7 +21,8 @@ if (isset($_POST['announce_id'])) {
     if (empty(trim($_POST["announce_id"]))) {
         $announce_err = "no anounce id was passed.";
         echo $announce_err;
-        exit;
+        header("location: announces.php");
+        exit();
     } else {
         $announceid = mysqli_real_escape_string($link,trim($_POST["announce_id"]));
     }

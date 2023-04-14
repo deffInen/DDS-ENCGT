@@ -32,6 +32,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $entrepriseName = mysqli_real_escape_string($link, trim($_POST["entreprise_nom"]));
     }
 
+    // Check if enteprise email is empty
+    if (empty(trim($_POST["entreprise_email"]))) {
+        $announce_err_state = true;
+    } else {
+        $entropriseEmail = mysqli_real_escape_string($link, trim($_POST["entreprise_email"]));
+    }
+
     // Check if announce type is empty
     if (empty(trim($_POST["Type_annance"]))) {
         $announce_err_state = true;
@@ -127,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty(trim($_POST["langues"]))) {
         $announce_err_state = true;
     } else {
-        $targetProfile = mysqli_real_escape_string($link, trim($_POST["langues"]));
+        $targetLangues = mysqli_real_escape_string($link, trim($_POST["langues"]));
     }
 
     // Check if extras is empty
@@ -155,9 +162,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "post_limite_date" => $postLimiteDate
             ),
             "target_info" => array(
-                "target_formation" => $entrepriseName,
-                "target_formation_level" => $entrepriseInfo,
-                "target_experience" => $entropriseEmail,
+                "target_formation" => $targetFormation,
+                "target_formation_level" => $targetFormationLevel,
+                "target_experience" => $targetExperience,
                 "target_languages" => $targetLangues,
                 "target_extras" => $targetExtras
             ),
@@ -212,9 +219,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <img src="https://encgt.ma/wp-content/uploads/2020/06/logo-web.png" alt="LOGO">
                 </a>
                 <ul>
-                    <li><a href="/DDS/DDS-ENCGT/code/logout.php" class="btn-decconecter">DECONECTER</a></li>
-                    <li><a href="annances.html" class="menu-option">ANNONCES</a></li>
-                    <li><a href="profile.html" class="menu-option" id="active">PROFILE</a></li>
+                    <li><a href="/DDS/DDS-ENCGT/code/logout.php" class="btn-decconecter">DECCONECTER</a></li>
+                    <li><a href="/DDS/DDS-ENCGT/code/announces.php" class="menu-option" id="active">ANNONCES</a></li>
+                    <li><a href="/DDS/DDS-ENCGT/code/profile.php" class="menu-option">PROFILE</a></li>
                 </ul>
             </div>
         </nav>
