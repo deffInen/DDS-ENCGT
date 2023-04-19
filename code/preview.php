@@ -1,5 +1,6 @@
 <?php
 
+
 // Include config file
 require_once "config.php";
 
@@ -17,71 +18,77 @@ require_once "config.php";
 
 // Define variables and initialize with empty values
 $announceid = $announce_err = "";
-
+$useremail = $_SESSION["useremail"];
 $annonce_obj = [];
 
 // Processing form data when form is submitted
 if (isset($_POST['announce_id'])) {
 
-    // Check if id is empty
-    if (empty(trim($_POST["announce_id"]))) {
-        $announce_err = "no anounce id was passed.";
-        echo $announce_err;
-        header("location: announces.php");
-        exit();
-    } else {
-        $announceid = mysqli_real_escape_string($link, trim($_POST["announce_id"]));
-    }
+    //check if the id is a number
+    if (is_numeric($_POST['announce_id'])) {
 
-    // Validate credentials
-    if (empty($announce_err)) {
-        // Prepare a select statement
-        $sql = "SELECT announce FROM announces WHERE id = ?";
+        // Check if id is empty
+        if (empty(trim($_POST["announce_id"]))) {
+            $announce_err = "no anounce id was passed.";
+            echo $announce_err;
+            header("location: announces.php");
+            exit();
+        } else {
+            $announceid = mysqli_real_escape_string($link, trim($_POST["announce_id"]));
+        }
 
-        if ($stmt = mysqli_prepare($link, $sql)) {
+        // Validate credentials
+        if (empty($announce_err)) {
+            // Prepare a select statement
+            $sql = "SELECT announce FROM announces WHERE id = ? AND email = ?";
 
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "i", $param_announce_id);
+            if ($stmt = mysqli_prepare($link, $sql)) {
 
-            // Set parameters
-            $param_announce_id = $announceid;
+                // Bind variables to the prepared statement as parameters
+                mysqli_stmt_bind_param($stmt, "is", $param_announce_id, $param_email);
 
-            // Attempt to execute the prepared statement
-            if (mysqli_stmt_execute($stmt)) {
+                // Set parameters
+                $param_announce_id = $announceid;
+                $param_email = $useremail;
 
-                // Store result
-                mysqli_stmt_store_result($stmt);
+                // Attempt to execute the prepared statement
+                if (mysqli_stmt_execute($stmt)) {
 
-                // Bind result variables
-                mysqli_stmt_bind_result($stmt, $announce);
+                    // Store result
+                    mysqli_stmt_store_result($stmt);
 
-                // if the item got deleted
-                if (mysqli_stmt_num_rows($stmt) == 1) {
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $announce);
 
-                    // Fetch rows and output data in table format
-                    while (mysqli_stmt_fetch($stmt)) {
-                        // extract announce data
-                        $annonce_obj = json_decode($announce);
+                    // if the item got deleted
+                    if (mysqli_stmt_num_rows($stmt) == 1) {
+
+                        // Fetch rows and output data in table format
+                        while (mysqli_stmt_fetch($stmt)) {
+                            // extract announce data
+                            $annonce_obj = json_decode($announce);
+                        }
+                    } else {
+                        // if the item did not delete or something went wrong
+                        echo "something went wrong";
+                        exit();
                     }
-
                 } else {
-                    // if the item did not delete or something went wrong
-                    echo "something went wrong";
+                    echo "Oops! Something went wrong. Please try again later.";
                     exit();
                 }
-            } else {
-                echo "Oops! Something went wrong. Please try again later.";
-                exit();
 
+                // Close statement
+                mysqli_stmt_close($stmt);
             }
-
-            // Close statement
-            mysqli_stmt_close($stmt);
         }
-    }
 
-    // Close connection
-    mysqli_close($link);
+        // Close connection
+        mysqli_close($link);
+    } else {
+        header("location: announces.php");
+        exit();
+    }
 }
 ?>
 
@@ -122,67 +129,66 @@ if (isset($_POST['announce_id'])) {
                     <div class="entro-aprop">
                         <h3>A PROPOS DE L'ENTREPRISE</h3>
                         <div class="line-break"></div>
-                        <p class="entro-desc"><?php echo $annonce_obj->entreprise_info->entreprise_info;?></p>
+                        <p class="entro-desc"><?php echo $annonce_obj->entreprise_info->entreprise_info; ?></p>
                     </div>
                     <div class="offre-aprop">
                         <h3>A PROPOS DE L'OFFRE</h3>
                         <div class="line-break"></div>
                         <div class="key-value-desc">
                             <p class="key-desc">Nature</p>
-                            <p class="value-desc"><?php echo $annonce_obj->entreprise_info->announce_type;?></p>
+                            <p class="value-desc"><?php echo $annonce_obj->entreprise_info->announce_type; ?></p>
                         </div>
                         <div class="key-value-desc">
                             <p class="key-desc">Profile</p>
-                            <p class="value-desc"><?php echo $annonce_obj->offer_info->post_profile;?></p>
+                            <p class="value-desc"><?php echo $annonce_obj->offer_info->post_profile; ?></p>
                         </div>
                         <div class="key-value-desc">
                             <p class="key-desc">Duree</p>
-                            <p class="value-desc"><?php echo $annonce_obj->offer_info->post_duration;?></p>
+                            <p class="value-desc"><?php echo $annonce_obj->offer_info->post_duration; ?></p>
                         </div>
                         <div class="key-value-desc">
                             <p class="key-desc">Nombre de Poste</p>
-                            <p class="value-desc"><?php echo $annonce_obj->offer_info->post_number;?></p>
+                            <p class="value-desc"><?php echo $annonce_obj->offer_info->post_number; ?></p>
                         </div>
                         <div class="key-value-desc">
                             <p class="key-desc">lieu</p>
-                            <p class="value-desc"><?php echo $annonce_obj->offer_info->post_location;?></p>
+                            <p class="value-desc"><?php echo $annonce_obj->offer_info->post_location; ?></p>
                         </div>
                         <div class="key-value-desc">
                             <p class="key-desc">Date Limite de Récepion des CVs</p>
-                            <p class="value-desc"><?php echo $annonce_obj->offer_info->post_limite_date;?></p>
+                            <p class="value-desc"><?php echo $annonce_obj->offer_info->post_limite_date; ?></p>
                         </div>
-                        <p class="desc-desc">Description : <?php echo $annonce_obj->offer_info->post_description;?></p>
+                        <p class="desc-desc">Description : <?php echo $annonce_obj->offer_info->post_description; ?></p>
                     </div>
                     <div class="comp-aprop">
                         <h3>COMPETENCES RECHERCHEES</h3>
                         <div class="line-break"></div>
                         <div class="key-value-desc">
                             <p class="key-desc">Formation</p>
-                            <p class="value-desc"><?php echo $annonce_obj->target_info->target_formation;?></p>
+                            <p class="value-desc"><?php echo $annonce_obj->target_info->target_formation; ?></p>
                         </div>
                         <div class="key-value-desc">
                             <p class="key-desc">Niveau de Formation</p>
-                            <p class="value-desc"><?php echo $annonce_obj->target_info->target_formation_level;?></p>
+                            <p class="value-desc"><?php echo $annonce_obj->target_info->target_formation_level; ?></p>
                         </div>
                         <div class="key-value-desc">
                             <p class="key-desc">Experiences</p>
-                            <p class="value-desc"><?php echo $annonce_obj->target_info->target_experience;?></p>
+                            <p class="value-desc"><?php echo $annonce_obj->target_info->target_experience; ?></p>
                         </div>
                         <div class="key-value-desc">
                             <p class="key-desc">Langues</p>
-                            <p class="value-desc"><?php echo $annonce_obj->target_info->target_languages;?></p>
+                            <p class="value-desc"><?php echo $annonce_obj->target_info->target_languages; ?></p>
                         </div>
-                        <p class="desc-desc">Extras : <?php echo $annonce_obj->target_info->target_extras;?></p>
+                        <p class="desc-desc">Extras : <?php echo $annonce_obj->target_info->target_extras; ?></p>
                     </div>
                     <div class="instru-aprop">
                         <h3>INSTRUCTIONS</h3>
                         <div class="line-break"></div>
-                        <p class="entro-desc">Pour postuler à cette offre, veuillez addresser votre CV en indiquant offre de stage PFE AUDI NORD aux adresses emails ci-aprés:</p>
+                        <p class="entro-desc">Pour postuler à cette offre, veuillez addresser votre CV en indiquant le titre de l'offre et le poste aux adresses emails ci-aprés:</p>
                         <div class="emails-instru">
-                            <p class="email-instru"><?php echo $annonce_obj->entreprise_info->entreprise_email;?></p>
+                            <p class="email-instru"><?php echo $annonce_obj->entreprise_info->entreprise_email; ?></p>
                             <p class="email-instru">sce.recherche.cooperation@encgt.ma</p>
                         </div>
-
                     </div>
                 </div>
 

@@ -13,6 +13,7 @@ require_once "config.php";
 
 // Define variables and initialize with empty values
 $announceid = $announce_err = "";
+$useremail = $_SESSION["useremail"];
 
 // Processing form data when form is submitted
 if (isset($_POST['announce_id'])) {
@@ -30,14 +31,15 @@ if (isset($_POST['announce_id'])) {
     // Validate credentials
     if (empty($announce_err)) {
         // Prepare a select statement
-        $sql = "DELETE FROM announces WHERE id = ?";
+        $sql = "DELETE FROM announces WHERE id = ? AND email = ?";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "i", $param_announce_id);
+            mysqli_stmt_bind_param($stmt, "is", $param_announce_id, $param_email);
 
             // Set parameters
             $param_announce_id = $announceid;
+            $param_email = $useremail;
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
@@ -62,5 +64,10 @@ if (isset($_POST['announce_id'])) {
 
     // Close connection
     mysqli_close($link);
+
 }
+
+// return to the announces page
+header("location: announces.php");
+
 ?>

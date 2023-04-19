@@ -18,10 +18,107 @@ $useremail_err = $annonce_err = "";
 $entrepriseName = $announceType = $entrepriseInfo = $entropriseEmail = "";
 $postNature = $postDescription = $postLocation = $postLimiteDate = $postNumber = $postDuration = $postProfile = "";
 $targetFormation = $targetFormationLevel = $targetExperience = $targetLangues = $targetExtras = "";
-$announce_err_state = false;
+$announce_err_state = $is_edit = false;
+
+
+//this checks if the anounce is about to be updated
+if (isset($_POST['announce_id'])) {
+    //set is_edit variable
+    $is_edit = true;
+
+    // check if the id is a number
+    if (is_numeric($_POST['announce_id'])) {
+
+        //define variables
+        $useremail = $_SESSION["useremail"];
+        $annonce_obj = [];
+
+        // Check if id is empty
+        if (empty(trim($_POST["announce_id"]))) {
+            $announce_err = "no anounce id was passed.";
+            echo $announce_err;
+            header("location: announces.php");
+            exit();
+        } else {
+            $announceid = mysqli_real_escape_string($link, trim($_POST["announce_id"]));
+        }
+
+        // Validate credentials
+        if (empty($announce_err)) {
+            // Prepare a select statement
+            $sql = "SELECT announce FROM announces WHERE id = ? AND email = ?";
+
+            if ($stmt = mysqli_prepare($link, $sql)) {
+
+                // Bind variables to the prepared statement as parameters
+                mysqli_stmt_bind_param($stmt, "is", $param_announce_id, $param_email);
+
+                // Set parameters
+                $param_announce_id = $announceid;
+                $param_email = $useremail;
+
+                // Attempt to execute the prepared statement
+                if (mysqli_stmt_execute($stmt)) {
+
+                    // Store result
+                    mysqli_stmt_store_result($stmt);
+
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $announce);
+
+                    // if the item got deleted
+                    if (mysqli_stmt_num_rows($stmt) == 1) {
+
+                        // Fetch rows and output data in table format
+                        while (mysqli_stmt_fetch($stmt)) {
+                            // extract announce data
+                            $annonce_obj = json_decode($announce);
+
+                            // setting up values
+                            $entrepriseName = $annonce_obj->entreprise_info->entreprise_name;
+                            $announceType = $annonce_obj->entreprise_info->announce_type;
+                            $entrepriseInfo = $annonce_obj->entreprise_info->entreprise_info;
+                            $entropriseEmail = $annonce_obj->entreprise_info->entreprise_email;
+
+                            $postNature = $annonce_obj->offer_info->post_nature;
+                            $postDescription = $annonce_obj->offer_info->post_description;
+                            $postLocation = $annonce_obj->offer_info->post_location;
+                            $postLimiteDate = $annonce_obj->offer_info->post_limite_date;
+                            $postNumber = $annonce_obj->offer_info->post_number;
+                            $postDuration = $annonce_obj->offer_info->post_duration;
+                            $postProfile = $annonce_obj->offer_info->post_profile;
+
+                            $targetFormation = $annonce_obj->target_info->target_formation;
+                            $targetFormationLevel = $annonce_obj->target_info->target_formation_level;
+                            $targetExperience = $annonce_obj->target_info->target_experience;
+                            $targetLangues = $annonce_obj->target_info->target_languages;
+                            $targetExtras = $annonce_obj->target_info->target_extras;
+                        }
+                    } else {
+                        // if the item did not delete or something went wrong
+                        echo "something went wrong";
+                        exit();
+                    }
+                } else {
+                    echo "Oops! Something went wrong. Please try again later.";
+                    exit();
+                }
+
+                // Close statement
+                mysqli_stmt_close($stmt);
+            }
+        }
+
+        // Close connection
+        mysqli_close($link);
+    } else {
+        header("location: announces.php");
+        exit();
+    }
+}
 
 // Processing form data when form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !$is_edit) {
 
     $useremail = $_SESSION["useremail"];
 
@@ -256,18 +353,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="ajt-flds-total" id="ajt-flds-total-stp-one">
                     <div class="ajt-flds-lft">
                         <label for="entreprise_nom">NOM DE L'ENTREPRISE</label><br>
-                        <input type="text" id="entreprise_nom" name="entreprise_nom" placeholder="Nom de l'Entreprise" required><br>
+                        <input type="text" id="entreprise_nom" name="entreprise_nom" placeholder="Nom de l'Entreprise" required value="<?php echo $entrepriseName; ?>"><br>
                         <label for="type_annonce">TYPE D'ANNONCE</label><br>
-                        <select id="type_annonce" name="Type_annance" required>
+                        <select id="type_annonce" name="Type_annance" required value="<?php echo $announceType; ?>" a>
                             <option value="Stage">Stage</option>
                             <option value="Emploi">Emploi</option>
                         </select><br>
                         <label for="entreprise_apropos">A PROPOS DE L'ENTREPRISE</label><br>
-                        <textarea name="entreprise_apropos" id="entreprise_apropos" cols="30" rows="5" placeholder="A Propos de l'Entreprise (3 lign max)" required></textarea>
+                        <textarea name="entreprise_apropos" id="entreprise_apropos" cols="30" rows="5" placeholder="A Propos de l'Entreprise (3 lign max)" required><?php echo $entrepriseInfo; ?></textarea>
                     </div>
                     <div class="ajt-flds-rght">
                         <label for="entreprise_email">EMAIL D'ENTREPRISE</label><br>
-                        <input type="email" id="entreprise_email" name="entreprise_email" placeholder="Email" required><br>
+                        <input type="email" id="entreprise_email" name="entreprise_email" placeholder="Email" required value="<?php echo $entropriseEmail; ?>"><br>
                         <label for="entreprise_logo">LOGO D'ENTREPRISE (OPTIONNEL)</label><br>
                         <div class="add-logo-entreprise">
                             <img src="css/assets/iconmonstr-picture-10.svg" alt="add logo">
@@ -280,52 +377,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="ajt-flds-total" id="ajt-flds-total-stp-two">
                     <div class="ajt-flds-lft">
                         <label for="entreprise_nom">NATURE DU STAGE</label><br>
-                        <select id="nature_de_post" name="nature_de_post" required>
+                        <select id="nature_de_post" name="nature_de_post" required value="<?php echo $postNature; ?>">
                             <option value="Stage">Stage</option>
                             <option value="Emploi">Emploi</option>
                         </select><br>
                         <label for="type_annonce">PROFILE</label><br>
-                        <input type="text" id="profile" name="profile" placeholder="Profile" required><br>
+                        <input type="text" id="profile" name="profile" placeholder="Profile" required value="<?php echo $postProfile; ?>"><br>
                         <label for="duree">DUREE</label><br>
-                        <input type="text" id="duree" name="duree" placeholder="Example: 23/06/2021-15/12/2023" required><br>
+                        <input type="text" id="duree" name="duree" placeholder="Example: 23/06/2021-15/12/2023" required value="<?php echo $postDuration; ?>"><br>
                         <label for="duree">NOMBRE DE POSTES</label><br>
-                        <input type="number" id="nombre_de_post" name="nombre_de_post" placeholder="Nombre de Postes" required><br>
+                        <input type="number" id="nombre_de_post" name="nombre_de_post" placeholder="Nombre de Postes" required value="<?php echo $postNumber; ?>"><br>
                     </div>
                     <div class="ajt-flds-rght">
                         <label for="description-de-post">DESCRIPTION DE POST</label><br>
-                        <textarea name="description-de-post" id="description-de-post" cols="30" rows="5" placeholder="Description" required></textarea>
+                        <textarea name="description-de-post" id="description-de-post" cols="30" rows="5" placeholder="Description" required><?php echo $postDescription; ?></textarea>
                         <label for="lieu">LIEU</label><br>
-                        <input type="text" id="lieu" name="lieu" placeholder="Lieu" required><br>
+                        <input type="text" id="lieu" name="lieu" placeholder="Lieu" required value="<?php echo $postLocation; ?>"><br>
                         <label for="date-limite">DATE LIMITE DE RECEPTION DES CVS</label><br>
-                        <input type="text" id="date-limite" name="date-limite" placeholder="Example: 23/06/2021" required><br>
+                        <input type="text" id="date-limite" name="date-limite" placeholder="Example: 23/06/2021" required value="<?php echo $postLimiteDate; ?>"><br>
                     </div>
                 </div>
                 <div class="ajt-flds-total" id="ajt-flds-total-stp-tree">
                     <div class="ajt-flds-lft">
                         <label for="formation">FORMATION</label><br>
-                        <select id="formation" name="formation" required>
+                        <select id="formation" name="formation" required value="<?php echo $targetFormation; ?>">
                             <option value="Stage">Stage</option>
                             <option value="Emploi">Emploi</option>
                         </select><br>
                         <label for="niveau-de-formation">NIVEAU DE FORMATIION</label><br>
-                        <select id="niveau-de-formation" name="niveau-de-formation" required>
+                        <select id="niveau-de-formation" name="niveau-de-formation" required value="<?php echo $targetFormationLevel; ?>">
                             <option value="Stage">Stage</option>
                             <option value="Emploi">Emploi</option>
                         </select><br>
                         <label for="niveau-de-experience">NIVEAU D'EXPERIENCE</label><br>
-                        <select id="niveau-de-experience" name="niveau-de-experience" required>
-                            <option value="Stage">Stage</option>
+                        <select id="niveau-de-experience" name="niveau-de-experience" required value="<?php echo $targetExperience; ?>>
+                            <option value=" Stage">Stage</option>
                             <option value="Emploi">Emploi</option>
                         </select><br>
                         <label for="langues">LANGUE</label><br>
-                        <select id="langues" name="langues" required>
+                        <select id="langues" name="langues" required value="<?php echo $targetLangues; ?>">
                             <option value="Stage">Stage</option>
                             <option value="Emploi">Emploi</option>
                         </select><br>
                     </div>
                     <div class="ajt-flds-rght">
                         <label for="extras">EXTRAS</label><br>
-                        <textarea name="extras" id="extras" placeholder="extras (optionnel)" cols="50" rows="10"></textarea>
+                        <textarea name="extras" id="extras" placeholder="extras (optionnel)" cols="50" rows="10"><?php echo $targetExtras; ?></textarea>
                     </div>
                 </div>
                 <div class="btn-action-stp">

@@ -103,12 +103,15 @@ $useremail = $_SESSION["useremail"];
                                     <td>' . $annonce_obj->offer_info->post_limite_date . '</td>
                                     <td>
                                         <img src="css/assets/visibility_FILL1_wght400_GRAD0_opsz48.svg" alt="Voir" id="' . $id . '" onclick="view_item()">
-                                        <form method="post" action="preview.php" style="visibility=hidden;" id="view_item_form">
+                                        <form method="post" action="save_to_pdf.php" style="visibility=hidden;" id="view_item_form">
                                             <input type="hidden" name="announce_id" value="' . $id . '">
                                         </form>
                                     </td>
                                     <td>
-                                        <img src="css/assets/edit_FILL1_wght400_GRAD0_opsz48.svg" alt="edit" id="' . $id . '">
+                                        <img src="css/assets/edit_FILL1_wght400_GRAD0_opsz48.svg" alt="edit" id="' . $id . '" onclick="edit_item()">
+                                        <form method="post" action="ajouter.php" style="visibility=hidden;" id="edit_item_form">
+                                            <input type="hidden" name="announce_id" value="' . $id . '">
+                                        </form>
                                         
                                     </td>
                                     <td><img src="css/assets/Mask Group 3.svg" alt="delete" id="' . $id . '"  onclick="delete_item()">
@@ -197,6 +200,11 @@ $useremail = $_SESSION["useremail"];
             function view_item() {
                 var view_item_form = document.getElementById("view_item_form");
                 view_item_form.submit();
+            }
+
+            function edit_item(){
+                var edit_item_form = document.getElementById("edit_item_form");
+                edit_item_form.submit();
             }
 
         </script>
