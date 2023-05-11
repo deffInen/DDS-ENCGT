@@ -3,8 +3,8 @@
 session_start();
 
 // Check if the user is already logged in, if yes then redirect him to welcome page
-if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    header("location: announces.php");
+if (isset($_SESSION["admin_loggedin"]) && $_SESSION["admin_loggedin"] === true) {
+    header("location: dds-anounces.php");
     exit;
 }
 
@@ -60,12 +60,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             session_start();
 
                             // Store data in session variables
-                            $_SESSION["loggedin"] = true;
+                            $_SESSION["admin_loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["useremail"] = $useremail;
 
                             // Redirect user to welcome page
-                            header("location: announces.php");
+                            header("location: dds-announces.php");
                         } else {
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
@@ -102,19 +102,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="main-bg-container">
-        <nav>
-            <div>
-                <a href="">
-                    <img src="https://encgt.ma/wp-content/uploads/2020/06/logo-web.png" alt="LOGO">
-                </a>
-                <p>NOUS CONTACTER</p>
-            </div>
-        </nav>
         <div class="main-content-container">
             <div class="wrapper">
                 <div class="form-container">
                     <div class="slide-controls">
-                        <p class="connect-title">CONNEXION</p>
+                        <p class="connect-title">ADMIN CONNEXION</p>
                         <?php
                         if (!empty($login_err)) {
                             echo '<div class="alert alert-danger">' . $login_err . '</div>';
@@ -131,15 +123,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <input type="password" name="password" placeholder="Password" required>
                             </div>
                             <span class="invalid-feedback"><?php echo $password_err; ?></span>
-                            <div class="pass-link">
-                                <a href="#">Forgot password?</a>
-                            </div>
                             <div class="field btn">
                                 <div class="btn-layer"></div>
                                 <input type="submit" value="CONNECTER">
-                            </div>
-                            <div class="signup-link">
-                                Pas un Membre? <a href="/DDS/DDS-ENCGT/code/inscription.php">Inscrire d'abord</a>
                             </div>
                         </form>
                     </div>
@@ -147,49 +133,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
         </div>
-    </div>
-
-    <div class="footer">
-        <footer>
-            <div class="footer-top">
-                <div class="footer-section-one">
-                    <div class="footer-section-one-container">
-                        <img src="https://encgt.ma/wp-content/uploads/2020/06/logo-web.png" alt="LOGO">
-                        <p>L’ENCG Tanger est un établissement d’enseignement supérieur public qui a
-                            pour mission de former les lauréats aux métiers du commerce et de gestion.</p>
-                    </div>
-                </div>
-                <div class="footer-section-filler"></div>
-                <div class="footer-section-two">
-                    <div class="footer-section-two-container">
-                        <p class="footer-title">EMAIL</p>
-                        <p class="footer-sub-info">encgtanger@encgt.ma</p>
-                        <p class="footer-title-mt">ADRESS</p>
-                        <p class="footer-sub-info">Route de l’aéroport, B.P 1255,90000 Tanger, Maroc</p>
-                    </div>
-                </div>
-                <div class="footer-section-tree">
-                    <div class="footer-section-tree-container">
-                        <p class="footer-title">Service formation continue</p>
-                        <p class="footer-sub-info">Tél. +212 (0) 539 313 489</p>
-                        <p class="footer-title-mt">Standard de l’ENCGT</p>
-                        <p class="footer-sub-info">Tél. +212 (0) 539 313 4 87</p>
-                        <p class="footer-sub-info-mt">Tél. +212 (0) 539 313 4 88</p>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-sub">
-                <div class="cp-container">
-                    <p>© ENCGT 2023</p>
-                </div>
-                <div class="icons-container">
-                    <img src="css/assets/Path 1.svg" alt="logo3">
-                    <img src="css/assets/Path 2.svg" alt="logo2">
-                    <img src="css/assets/Path 3.svg" alt="logo1">
-                </div>
-
-            </div>
-        </footer>
     </div>
 </body>
 
