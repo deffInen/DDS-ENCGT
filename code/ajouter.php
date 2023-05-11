@@ -3,6 +3,13 @@
 // Include config file
 require_once "config.php";
 
+// pdf requires
+require_once 'vendor/autoload.php';
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+
 // Initialize the session
 session_start();
 
@@ -22,25 +29,25 @@ $announce_err_state = $is_edit = false;
 
 
 //this checks if the anounce is about to be updated
-if (isset($_POST['announce_id'])) {
+if (isset($_GET['announce_id'])) {
     //set is_edit variable
     $is_edit = true;
 
     // check if the id is a number
-    if (is_numeric($_POST['announce_id'])) {
+    if (is_numeric($_GET['announce_id'])) {
 
         //define variables
         $useremail = $_SESSION["useremail"];
         $annonce_obj = [];
 
         // Check if id is empty
-        if (empty(trim($_POST["announce_id"]))) {
+        if (empty(trim($_GET["announce_id"]))) {
             $announce_err = "no anounce id was passed.";
             echo $announce_err;
             header("location: announces.php");
             exit();
         } else {
-            $announceid = mysqli_real_escape_string($link, trim($_POST["announce_id"]));
+            $announceid = mysqli_real_escape_string($link, trim($_GET["announce_id"]));
         }
 
         // Validate credentials
@@ -150,6 +157,70 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !$is_edit) {
         $entrepriseInfo = mysqli_real_escape_string($link, trim($_POST["entreprise_apropos"]));
     }
 
+    // Check if enteprise logo is empty
+    if (isset($_FILES["entreprise_logo"]) && $_FILES["entreprise_logo"]['error'] == 0) {
+        // The user has uploaded an image, and there were no errors
+
+        //get the image details
+        $file_name = $_FILES['entreprise_logo']['name'];
+        $file_tmp = $_FILES['entreprise_logo']['tmp_name'];
+        $file_size = $_FILES['entreprise_logo']['size'];
+        $file_type = $_FILES['entreprise_logo']['type'];
+
+        // Read file contents
+        $fp = fopen($file_tmp, 'r');
+        $content_tmp = fread($fp, filesize($file_tmp));
+        $content = base64_encode($content_tmp);
+        fclose($fp);
+
+        //create the image data
+        $entrepriseLogo = array(
+            "entreprise_logo_file_name" => $file_name,
+            "entreprise_logo_file_tmp" => $file_tmp,
+            "entreprise_logo_file_size" => $file_size,
+            "entreprise_logo_file_type" => $file_type,
+            "entreprise_logo_file_content" => $content
+        );
+
+        $fileHTML = '<img src="data:' . $file_type . ';base64,' . $content . '" alt="logo_en">';
+
+    } else {
+        // The user did not upload an image, or there was an error
+        // Handle the error or take appropriate action
+
+        $fileHTML = "";
+
+        if ($_FILES['entreprise_logo']['error'] != 0) {
+
+            $error_message = 'Error uploading file: ';
+
+            switch ($_FILES['entreprise_logo']['error']) {
+                case UPLOAD_ERR_INI_SIZE:
+                case UPLOAD_ERR_FORM_SIZE:
+                    $error_message .= 'File size too large';
+                    break;
+                case UPLOAD_ERR_PARTIAL:
+                    $error_message .= 'File upload was only partially completed';
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                    $error_message .= 'No file uploaded';
+                    break;
+                case UPLOAD_ERR_NO_TMP_DIR:
+                case UPLOAD_ERR_CANT_WRITE:
+                case UPLOAD_ERR_EXTENSION:
+                    $error_message .= 'Server error';
+                    break;
+                default:
+                    $error_message .= 'Unknown error';
+                    break;
+            }
+
+            $entrepriseLogo = $error_message;
+        } else {
+            $entrepriseLogo = "no image was uploaded";
+        }
+    }
+
     // Check if post description is empty
     if (empty(trim($_POST["description-de-post"]))) {
         $announce_err_state = true;
@@ -241,13 +312,270 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !$is_edit) {
 
     // Validate credentials
     if (empty($useremail_err) && !$announce_err_state) {
+
+        //create the announce pdf
+
+        //set options
+        $options = new Options();
+        $options->set('defaultFont', 'Arial');
+        $options->set('isRemoteEnabled', true);
+        $options->set('chroot', '/var/www/html/DDS/DDS-ENCGT/code');
+        $options->set('base_path', '/css/assets/');
+        $options->set('isPhpEnabled', true);
+        $options->set('fontCache', 'dompdf/lib/cache');
+
+        // Instantiate Dompdf
+        $dompdf = new Dompdf($options);
+
+        // HTML content to be converted to PDF
+        $html = '
+            <html lang="en">
+            <style>
+                * {
+                margin: 0;
+                padding: 0;
+                }
+
+                body {
+                margin-top: 20px;
+                }
+
+                .main-content-container-dds {
+                height: 1120px;
+                width: 793px;
+                }
+
+                .info-content-container-dds {
+                height: 1120px;
+                width: 793px;
+                background-color: white;
+                }
+
+                .info-content-container-dds p {
+                color: #7F7F7F;
+                }
+
+                .info-content-container-dds img {
+                height: 100px;
+                float: left;
+                margin-left: 20px;
+                }
+
+                .top-logos {
+                width: 793px;
+                height: 105px;
+                }
+
+                .company-logo {
+                height: 100px;
+                float: right;
+                margin-right: 20px;
+                }
+
+                .company-logo img{
+                height: 100px;
+                float: right;
+                }
+
+                .annonce-title {
+                text-align: center;
+                width: 100%;
+                margin-top: 30px;
+                color: #529A0B;
+                }
+
+                .annonce-desc {
+                text-align: center;
+                width: 100%;
+                margin-top: 10px;
+                color: #529A0B;
+                }
+
+                .annonce-aprop {
+                width: 100%;
+                margin-top: 30px;
+                }
+
+                .entro-aprop {
+                width: 90%;
+                margin: 0 auto;
+                margin-bottom: 20px;
+                }
+
+                .offre-aprop {
+                width: 90%;
+                margin: 0 auto;
+                margin-bottom: 20px;
+                }
+
+                .comp-aprop {
+                width: 90%;
+                margin: 0 auto;
+                margin-bottom: 20px;
+                }
+
+                .instru-aprop {
+                width: 90%;
+                margin: 0 auto;
+                }
+
+                .line-break {
+                width: 100%;
+                height: 2px;
+                margin-bottom: 10px;
+                background-color: #529A0B;
+                }
+
+                .key-value-desc {
+                width: 100%;
+                height: 30px;
+                margin-bottom: 10px;
+                }
+
+                .key-desc {
+                float: left;
+                }
+
+                .value-desc {
+                float: right;
+                max-width: 65%;
+                }
+
+                .desc-desc {
+                width: 100%;
+                }
+
+                .emails-instru {
+                width: 100%;
+                margin-top: 10px;
+                }
+
+                .email-instru {
+                width: 100%;
+                margin-bottom: 5px;
+                text-align: end;
+                font-weight: bold;
+                text-align: right;
+                }
+
+
+                .info-content-container-dds h3 {
+                color: #529A0B;
+                font-weight: bold;
+                text-align: left;
+                width: 100%;
+                }
+            </style>
+
+            <body>
+                <div class="main-content-container-dds">
+                <div class="info-content-container-dds">
+                    <div class="top-logos">
+                    <img src="css/assets/logo-web.jpg" alt="LOGO">
+                    <div class="company-logo">
+                    ' . $fileHTML . '
+                    </div>
+                    </div>
+                    <h1 class="annonce-title">OFFRE DE STAGE PFE (BAC+5)</h1>
+                    <h2 class="annonce-desc">Profil : Comptable</h2>
+                    <div class="annonce-aprop">
+                    <div class="entro-aprop">
+                        <h3>A PROPOS DE LENTREPRISE</h3>
+                        <div class="line-break"></div>
+                        <p class="entro-desc">' . $entrepriseInfo . '</p>
+                    </div>
+                    <div class="offre-aprop">
+                        <h3>A PROPOS DE LOFFRE</h3>
+                        <div class="line-break"></div>
+                        <div class="key-value-desc">
+                        <p class="key-desc">Nature</p>
+                        <p class="value-desc">' . $announceType . '</p>
+                        </div>
+                        <div class="key-value-desc">
+                        <p class="key-desc">Profile</p>
+                        <p class="value-desc">' . $postProfile . '</p>
+                        </div>
+                        <div class="key-value-desc">
+                        <p class="key-desc">Duree</p>
+                        <p class="value-desc">' . $postDuration . '</p>
+                        </div>
+                        <div class="key-value-desc">
+                        <p class="key-desc">Nombre de Poste</p>
+                        <p class="value-desc">' . $postNumber . '</p>
+                        </div>
+                        <div class="key-value-desc">
+                        <p class="key-desc">lieu</p>
+                        <p class="value-desc">' . $postLocation . '</p>
+                        </div>
+                        <div class="key-value-desc">
+                        <p class="key-desc">Date Limite de Récepion des CVs</p>
+                        <p class="value-desc">' . $postLimiteDate . '</p>
+                        </div>
+                        <p class="desc-desc">Description : ' . $postDescription . '</p>
+                    </div>
+                    <div class="comp-aprop">
+                        <h3>COMPETENCES RECHERCHEES</h3>
+                        <div class="line-break"></div>
+                        <div class="key-value-desc">
+                        <p class="key-desc">Formation</p>
+                        <p class="value-desc">' . $targetFormation . '</p>
+                        </div>
+                        <div class="key-value-desc">
+                        <p class="key-desc">Niveau de Formation</p>
+                        <p class="value-desc">' . $targetFormationLevel . '</p>
+                        </div>
+                        <div class="key-value-desc">
+                        <p class="key-desc">Experiences</p>
+                        <p class="value-desc">' . $targetExperience . '</p>
+                        </div>
+                        <div class="key-value-desc">
+                        <p class="key-desc">Langues</p>
+                        <p class="value-desc">' . $targetLangues . '</p>
+                        </div>
+                        <p class="desc-desc">Extras : ' . $targetExtras . '</p>
+                    </div>
+                    <div class="instru-aprop">
+                        <h3>INSTRUCTIONS</h3>
+                        <div class="line-break"></div>
+                        <p class="entro-desc">Pour postuler à cette offre, veuillez addresser votre CV en indiquant le titre de loffre et le poste aux adresses emails ci-aprés:</p>
+                        <div class="emails-instru">
+                        <p class="email-instru">' . $entropriseEmail . '</p>
+                        <p class="email-instru">sce.recherche.cooperation@encgt.ma</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </body>
+
+            </html>
+'   ;
+
+
+        // Load HTML content into Dompdf
+        $dompdf->loadHtml($html);
+
+        // Set paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Get the binary data of the PDF
+        $pdf_content = $dompdf->output();
+
+        // Encode the PDF data as a string
+        $pdf_content_base64 = base64_encode($pdf_content);
+
+
         // create announce JSON
         $announce = array(
             "entreprise_info" => array(
                 "entreprise_name" => $entrepriseName,
                 "entreprise_info" => $entrepriseInfo,
                 "entreprise_email" => $entropriseEmail,
-                "announce_type" => $announceType
+                "announce_type" => $announceType,
+                "entreprise_logo" => $entrepriseLogo
             ),
             "offer_info" => array(
                 "post_nature" => $postNature,
@@ -264,22 +592,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !$is_edit) {
                 "target_experience" => $targetExperience,
                 "target_languages" => $targetLangues,
                 "target_extras" => $targetExtras
-            ),
+            )
         );
 
+
         // Prepare a select statement
-        $sql = "INSERT INTO announces (email, announce) VALUES (?, ?)";
+        $sql = "INSERT INTO announces (email, announce, pdf) VALUES (?, ?, ?)";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_useremail, $param_announce);
+            mysqli_stmt_bind_param($stmt, "sss", $param_useremail, $param_announce, $param_pdf);
 
             // Set parameters
 
             $param_useremail = $useremail;
             $param_announce = json_encode($announce);
+            $param_pdf = $pdf_content_base64;
+
 
             // Attempt to execute the prepared statement
+
             if (mysqli_stmt_execute($stmt)) {
                 // Redirect to login page
                 header("location: announces.php");
@@ -322,7 +654,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !$is_edit) {
                 </ul>
             </div>
         </nav>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="main-content-container-ajt" id="main-content-container-ajt" name="ajt_dds">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="main-content-container-ajt" id="main-content-container-ajt" name="ajt_dds" enctype="multipart/form-data">
             <div class="info-content-container-ajt-stp">
                 <div class="stp-container" onclick="setStep(1)">
                     <div class="numb-container" id="numb-container-one">
@@ -365,11 +697,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !$is_edit) {
                     <div class="ajt-flds-rght">
                         <label for="entreprise_email">EMAIL D'ENTREPRISE</label><br>
                         <input type="email" id="entreprise_email" name="entreprise_email" placeholder="Email" required value="<?php echo $entropriseEmail; ?>"><br>
-                        <label for="entreprise_logo">LOGO D'ENTREPRISE (OPTIONNEL)</label><br>
+                        <label for="entreprise_logo_nav">LOGO D'ENTREPRISE (OPTIONNEL)</label><br>
                         <div class="add-logo-entreprise">
-                            <img src="css/assets/iconmonstr-picture-10.svg" alt="add logo">
+                            <img src="css/assets/iconmonstr-picture-10.svg" alt="add logo" id="image-preview">
                             <p>ajouter votre logo d'entreprise</p>
-                            <input type="file" name="file" id="file" class="inputfile" />
+                            <input id="file" type="file" name="entreprise_logo" accept="image/*" class="inputfile" onchange="previewImage();">
                             <label for="file">AJOUTER</label>
                         </div>
                     </div>
@@ -636,6 +968,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !$is_edit) {
             form.submit();
         }
 
+    }
+
+    function previewImage() {
+        var preview = document.getElementById("image-preview");
+        var file = document.getElementById("file").files[0];
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            preview.src = reader.result;
+            preview.style.display = "block";
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+            preview.style.display = "none";
+        }
     }
 </script>
 

@@ -121,7 +121,9 @@ if (isset($_POST['announce_id'])) {
             <div class="info-content-container-dds">
                 <div class="top-logos">
                     <img src="https://encgt.ma/wp-content/uploads/2020/06/logo-web.png" alt="LOGO">
-                    <div class="company-logo"></div>
+                    <div class="company-logo">
+                        <img src="data:<?php echo $annonce_obj->entreprise_info->entreprise_logo->entreprise_logo_file_type; ?>;base64,<?php echo $annonce_obj->entreprise_info->entreprise_logo->entreprise_logo_file_content; ?>" alt="logo_en">
+                    </div>
                 </div>
                 <h1 class="annonce-title">OFFRE DE STAGE PFE (BAC+5)</h1>
                 <h2 class="annonce-desc">Profil : Comptable</h2>

@@ -728,14 +728,14 @@ table img {
 .main-content-container-ajt{
   padding-top: 1%;
   padding-bottom: 1%;
-  height: calc(100% - 100px);
+  height: calc(100vh - 150px);
   width: 78%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .info-content-container-ajt-stp{
@@ -912,6 +912,10 @@ table img {
 
 .add-logo-entreprise p{
   margin-top: 10px;
+}
+
+#image-preview{
+  height: 120px;
 }
 
 .outlined-btn-ajt {
